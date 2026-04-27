@@ -17,7 +17,7 @@ _How each scheduled 03:00 CET run is expected to behave._
 3. **No production deploys, no domain purchases, no API-key commits, no destructive git operations** (no `push --force`, no `reset --hard origin/...`, no branch deletion on the remote).
 4. **No `npm install` / `pnpm install` / `pip install`** — installs are human steps. Commit manifests and config; do not run package managers.
 5. **No interactive commands.** Every command must run non-interactively to completion.
-6. **Always work on a feature branch named `auto/<YYYY-MM-DD>-<short-slug>`.** Never push directly to `main`.
+6. **Do not run `git push` or `gh pr create`.** The cloud wrapper handles publishing. Just commit on the workspace's default branch (which the platform set up) and exit — the wrapper will create a `claude/...` branch and open the PR. Never push directly to `main`.
 
 ## The run, step by step
 
@@ -32,9 +32,9 @@ _How each scheduled 03:00 CET run is expected to behave._
 - If the leaf depends on something that needs human sign-off, skip it and go to the next.
 - If the chosen leaf would clearly need >10 commands, **split it** by writing a sub-plan into `ROADMAP.md` (leaves like L1.4 → L1.4a, L1.4b) — that itself is a valid daily run.
 
-### 3. Branch + work
+### 3. Work in place
 
-- `git checkout main && git pull --ff-only && git checkout -b auto/<date>-<slug>`
+- Stay on the working branch the platform handed you (do not run `git checkout` to switch branches).
 - Do the smallest amount of work that completes the leaf.
 - Update `ROADMAP.md`: mark the leaf `[~]` (draft) or `[x]` (ready to merge).
 - Append a one-line entry to `DECISIONS.md` if a non-obvious choice was made.
@@ -46,15 +46,16 @@ _How each scheduled 03:00 CET run is expected to behave._
   `/Users/andrei/Library/CloudStorage/Dropbox/DropsyncFiles/Obsidian Vault/HALFLIFE/`
 - Preserve relative paths under that root.
 
-### 5. Commit + PR
+### 5. Commit only — the platform publishes
 
 - Commit message format: `<phase-id>: <leaf-id> <imperative summary>` (e.g., `phase-1: L1.3 add scoring methodology`).
-- Open a PR with `gh pr create` against `main`. Title = leaf id + summary. Body must include:
+- Commit body must include the structured PR-ready fields the wrapper will lift into the PR description:
   - **Leaf:** the line copied from ROADMAP
   - **What changed:** 1–3 bullets
   - **Cost:** corgi USD spent in this run + Claude prompt cost estimate
+  - **Mirror:** list of new/changed paths to copy to `Obsidian Vault/HALFLIFE/`
   - **Next:** the leaf id the next run will likely pick
-- If the leaf is fully self-contained and review-safe (docs, configs, prompts, evals), the PR can be auto-merged after CI green. If it touches anything user-facing or stack-defining, leave the PR open for human review.
+- **Do NOT run `git push` or `gh pr create`.** The cloud platform's wrapper publishes the commit to a `claude/...` branch and opens the PR for you. Direct push and direct PR creation are 403'd by the proxy.
 
 ### 6. If blocked
 
