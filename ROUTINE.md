@@ -12,7 +12,10 @@ _How each scheduled 03:00 CET run is expected to behave._
 
 ## Hard constraints
 
-1. **≤ 5 tool/command calls per run.** Plan the run before starting and stop early if you blow past the budget. A short, clean PR beats a long broken one. (Tightened from 10 on 2026-04-29 to fit Andrei's weekly Claude usage cap.)
+1. **Daily budget depends on day of week.** Check `date -u +%u` (Mon=1..Sun=7) before doing anything else.
+   - Days 1–5 (Mon–Fri): **≤ 2 tool/command calls per run.** Tight — usually only enough for a tiny edit or a `ROADMAP.md` split. That is fine.
+   - Days 6–7 (Sat–Sun): **≤ 10 tool/command calls per run.** Bigger leaves are possible. Andrei targets ~20 commands across the whole weekend (i.e. ~10/day) — burning what's left of his weekly Claude cap before it resets Monday 09:00 CET.
+   Plan the run before starting and stop early if you blow past the budget. A short, clean PR beats a long broken one.
 2. **≤ $1 USD/week total `corgi` skill spend.** Track cumulative use in `LEDGER.md`. If the running 7-day total would exceed $1, defer the corgi step and pick a different leaf.
 3. **No production deploys, no domain purchases, no API-key commits, no destructive git operations** (no `push --force`, no `reset --hard origin/...`, no branch deletion on the remote).
 4. **No `npm install` / `pnpm install` / `pip install`** — installs are human steps. Commit manifests and config; do not run package managers.
@@ -30,7 +33,7 @@ _How each scheduled 03:00 CET run is expected to behave._
 
 - Choose the **first unchecked `[ ]` leaf** in `ROADMAP.md` (top-down, phase-by-phase).
 - If the leaf depends on something that needs human sign-off, skip it and go to the next.
-- If the chosen leaf would clearly need >5 commands, **split it** by writing a sub-plan into `ROADMAP.md` (leaves like L1.4 → L1.4a, L1.4b) — that itself is a valid daily run. With a 5-command budget, splitting will be common; that is fine.
+- If the chosen leaf would clearly exceed today's budget (2 on weekdays, 10 on weekend), **split it** by writing a sub-plan into `ROADMAP.md` (leaves like L1.4 → L1.4a, L1.4b) — that itself is a valid daily run. On weekdays splitting will be the norm; that is fine.
 
 ### 3. Work in place
 
@@ -80,7 +83,7 @@ Commit `BLOCKED.md` on a branch and open a PR titled `BLOCKED: <leaf-id> needs h
 
 ## Stop conditions (any one fires → end run gracefully)
 
-- 5 tool/command calls used.
+- Today's command budget used (2 on weekdays, 10 on weekend).
 - A test or a `gh pr create` fails twice.
 - Working tree has unrelated changes from another session — abort, do not touch them, write a one-line note in `BLOCKED.md`.
 - A leaf would require buying a domain, deploying, sending an email, or posting publicly.
