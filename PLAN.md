@@ -75,7 +75,7 @@ The autonomous routine should run a domain-availability + SERP-noise check on ea
 
 - The user reviews progress async. No live debugging available.
 - Daily run window: **03:00 CET (= 01:00 UTC during CEST, 02:00 UTC during CET)**.
-- Daily command budget: **≤2 commands Mon–Fri, ≤10 commands Sat–Sun** (weekend pool target ~20 commands total). Andrei rations his weekly Claude cap during the week and burns the remainder on the weekend; the cap resets Monday 09:00 CET.
+- Daily command budget: **≤2 commands Mon–Fri, ≤10 commands Sat–Sun** (weekend pool target ~20 commands total). **Monday's early-morning cron fire (03:00 Madrid, before the 09:00 weekly reset) is uncapped** — that's the "use it or lose it" window where the routine deletes any remaining weekly quota. Andrei rations his weekly Claude cap during the week and burns the remainder Sat–Mon-pre-reset; the cap resets Monday 09:00 CET.
 - Weekly external-data budget: **≤ $1 USD/week of `corgi` skill usage** (for keyword/SERP checks on naming, programmatic-SEO seed, and competitor SERPs).
 - Each run must end in either: a merged PR, a draft PR awaiting review, or a `BLOCKED.md` report explaining what's needed from the human.
 - No domain purchases, no API keys committed, no production deploys without explicit human sign-off.
