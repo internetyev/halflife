@@ -50,16 +50,19 @@ _How each scheduled 03:00 CET run is expected to behave._
   `/Users/andrei/Library/CloudStorage/Dropbox/DropsyncFiles/Obsidian Vault/HALFLIFE/`
 - Preserve relative paths under that root.
 
-### 5. Commit only — the platform publishes
+### 5. Commit only — the platform publishes, the workflow auto-merges
 
 - Commit message format: `<phase-id>: <leaf-id> <imperative summary>` (e.g., `phase-1: L1.3 add scoring methodology`).
-- Commit body must include the structured PR-ready fields the wrapper will lift into the PR description:
-  - **Leaf:** the line copied from ROADMAP
-  - **What changed:** 1–3 bullets
-  - **Cost:** corgi USD spent in this run + Claude prompt cost estimate
-  - **Mirror:** list of new/changed paths to copy to `Obsidian Vault/HALFLIFE/`
-  - **Next:** the leaf id the next run will likely pick
-- **Do NOT run `git push` or `gh pr create`.** The cloud platform's wrapper publishes the commit to a `claude/...` branch and opens the PR for you. Direct push and direct PR creation are 403'd by the proxy.
+- **Your PRs auto-merge.** A `.github/workflows/auto-merge-claude.yml` workflow squash-merges any PR opened from a `claude/*` branch as soon as it is created. There is no human review gate. **That means your commit body becomes the merged PR description and lives in the repo's history forever — write it as if a future maintainer (possibly you, in a different session) is the only person who will ever read it.**
+- Commit body must include these structured fields, in this order:
+  - **Leaf:** the line copied verbatim from `ROADMAP.md` (id + description).
+  - **Why:** one sentence on why this leaf, now. Skip if the answer is "it was the next unchecked leaf" — only write Why when there's context worth preserving.
+  - **What changed:** 2–4 bullets that name files and concepts, not just verbs. "Adds `lib/foo/types.ts` with the `Score` discriminated union and 6-field `Result` shape" beats "Adds types".
+  - **Design notes:** any non-obvious choice — a tradeoff, a deferred concern, a thing the next run should know. Skip if there are none.
+  - **Cost:** corgi USD spent in this run + Claude prompt cost estimate (e.g. `$0.00 corgi, ~$0.02 prompt`).
+  - **Mirror:** list of new/changed `*.md` and `*.csv` paths under `docs/`, `evals/`, `prompts/`, plus the top-level planning docs. Andrei syncs these to `Obsidian Vault/HALFLIFE/` separately on his Mac — this list is a courtesy index, not a trigger.
+  - **Next:** the leaf id and short description of what the next run will likely pick.
+- **Do NOT run `git push` or `gh pr create`.** The cloud platform's wrapper publishes the commit to a `claude/...` branch and opens the PR. Direct push and direct PR creation are 403'd by the proxy.
 
 ### 6. If blocked
 
