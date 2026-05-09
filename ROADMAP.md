@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-09 (L1.5 split into L1.5a + L1.5b; L1.5a merged)_
+_Last updated: 2026-05-10 (L1.6 ratified stack ADR + naming-evaluation criteria ADR)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -23,7 +23,7 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 - [x] L1.4 Draft v1 of the Claude prompt(s) in `prompts/role-analysis.md` — single structured tool-use call returning `{ score, countdown_years, ai_tools[], pivot_steps[], confidence, sources_hint[] }`
 - [x] L1.5a Pick 10 representative roles + scaffold `evals/role-analysis-baseline.csv` + write `evals/README.md` with the manual-eval procedure and the qualitative-rating rubric. (Routine cannot run the API call itself, so the eval-execution piece is the human-gated L1.5b below.)
 - [ ] L1.5b **(human-gated — needs ANTHROPIC_API_KEY)** Run the v1 prompt against the 10 baseline roles, paste outputs into `evals/role-analysis-baseline.csv`, append a `## Findings` section to `evals/README.md` rating consistency. Decide: ship v1 / patch prompt + bump `prompt_version` / revise methodology.
-- [ ] L1.6 Write `DECISIONS.md` ADR for stack, ADR for naming-evaluation criteria
+- [x] L1.6 Write `DECISIONS.md` ADR for stack, ADR for naming-evaluation criteria
 - [ ] L1.7 Naming pass: shortlist 5 candidate domains, run availability + SERP-noise check (≤ $0.30 of corgi spend), write `docs/naming-shortlist.md` with a recommended pick — **do NOT purchase**
 
 ## Phase 2 — Core MVP (Sprint 2, ~7 daily runs)

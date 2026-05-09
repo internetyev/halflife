@@ -10,3 +10,4 @@ External-data spend (corgi-cli, ad-hoc API calls). Append-only. Reset the rollin
 | 2026-05-09 | L1.3 | — | 0.00 | Methodology doc — pure prose, no external data calls |
 | 2026-05-09 | L1.4 | — | 0.00 | v1 role-analysis prompt — prose + JSON tool schema, no external calls |
 | 2026-05-09 | L1.5a | — | 0.00 | Eval scaffold — 10 baseline roles + CSV header + procedure doc, no external calls. Actual eval API spend lands under L1.5b when the human runs it. |
+| 2026-05-10 | L1.6  | — | 0.00 | ADRs only (stack ratification + naming-evaluation criteria) — pure prose edits to `DECISIONS.md`, no external calls. |
