@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-10 (L1.6 ratified stack ADR + naming-evaluation criteria ADR)_
+_Last updated: 2026-05-10 (L1.7 split into L1.7a routine-scored draft + L1.7b human-gated final pick)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -24,7 +24,8 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 - [x] L1.5a Pick 10 representative roles + scaffold `evals/role-analysis-baseline.csv` + write `evals/README.md` with the manual-eval procedure and the qualitative-rating rubric. (Routine cannot run the API call itself, so the eval-execution piece is the human-gated L1.5b below.)
 - [ ] L1.5b **(human-gated — needs ANTHROPIC_API_KEY)** Run the v1 prompt against the 10 baseline roles, paste outputs into `evals/role-analysis-baseline.csv`, append a `## Findings` section to `evals/README.md` rating consistency. Decide: ship v1 / patch prompt + bump `prompt_version` / revise methodology.
 - [x] L1.6 Write `DECISIONS.md` ADR for stack, ADR for naming-evaluation criteria
-- [ ] L1.7 Naming pass: shortlist 5 candidate domains, run availability + SERP-noise check (≤ $0.30 of corgi spend), write `docs/naming-shortlist.md` with a recommended pick — **do NOT purchase**
+- [x] L1.7a Naming pass — internal-criteria scoring: write `docs/naming-shortlist.md` with the 8 seed candidates from PLAN.md / D-013 scored on the routine-doable D-013 dimensions (semantic fit, pronounceability, memorability, TLD signal); flag hard gates as TBD pending L1.7b. (Split off because the laptop running this routine has `corgi-serp` installed but no `DATAFORSEO_LOGIN` configured, so D-013 gate (4) cannot run from the routine.)
+- [ ] L1.7b **(human-gated — needs `DATAFORSEO_LOGIN` for corgi-serp + a registrar/TM check pass)** Run `corgi-serp` SERP probes on the surviving candidates (≤ $0.30 corgi spend per D-013), verify the four hard gates (TM clear / no `.com` collision / ≤ $200/yr registrar list-price / ≤ 3 top-10 unrelated brands), update `docs/naming-shortlist.md` with measured values + a single bolded final recommendation, log the corgi spend to LEDGER.md. **Do NOT purchase** — purchase stays under L5.1.
 
 ## Phase 2 — Core MVP (Sprint 2, ~7 daily runs)
 
