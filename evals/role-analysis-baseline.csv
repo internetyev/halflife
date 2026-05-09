@@ -1,0 +1,11 @@
+row,raw_title,probe,expected_band,normalized_title,task_automatability,tool_maturity,adoption_velocity,hitl_necessity,differentiation_moat,labor_market_elasticity,score,countdown_years,confidence,confidence_rationale,ai_tools_count,ai_tools_named_real,pivot_steps_count,pivot_steps_role_specific,synonym_collapse_fired,consistency_notes,raw_json_path
+1,paralegal,worked-example-anchor-A,low,,,,,,,,,,,,,,,,n/a,,
+2,kindergarten teacher,worked-example-anchor-B,high,,,,,,,,,,,,,,,,n/a,,
+3,copywriter,named-tools-probe,low,,,,,,,,,,,,,,,,n/a,,
+4,customer support representative,generic-pivots-probe,low-mid,,,,,,,,,,,,,,,,n/a,,
+5,radiologist,calibration-vs-doom,mid,,,,,,,,,,,,,,,,n/a,,
+6,translator,low-band-sanity,low,,,,,,,,,,,,,,,,n/a,,
+7,plumber,high-band-sanity,high,,,,,,,,,,,,,,,,n/a,,
+8,attorney,synonym-collapse,low,,,,,,,,,,,,,,,,expect-lawyer,,
+9,ux designer,synonym-collapse,mid,,,,,,,,,,,,,,,,expect-product-designer,,
+10,account exec,synonym-collapse,low-mid,,,,,,,,,,,,,,,,expect-sales-representative,,
