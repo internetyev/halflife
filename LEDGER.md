@@ -7,3 +7,4 @@ External-data spend (corgi-cli, ad-hoc API calls). Append-only. Reset the rollin
 | 2026-04-27 | setup | — | 0.00 | Planning bundle, no external data calls |
 | 2026-05-01 | smoke-test | — | 0.00 | Local smoke test of auto-merge workflow on a claude/* branch |
 | 2026-05-09 | L1.2 | — | 0.00 | Repo hygiene scaffold: `.gitignore`, `.env.example`, `tsconfig.json`, README rewrite |
+| 2026-05-09 | L1.3 | — | 0.00 | Methodology doc — pure prose, no external data calls |
