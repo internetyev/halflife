@@ -13,4 +13,5 @@ Append-only ADR-style log. One line per decision unless the rationale is non-obv
 ## 2026-05-09
 
 - **D-006** Version pins for the L1.1 scaffold: Next.js 15.1, React 19, TypeScript 5.7, Tailwind v4 (with `@tailwindcss/postcss`), shadcn/ui (`new-york` style, `neutral` base, RSC + tsx). Tailwind v4 picked over v3 because it's stable as of mid-2025 and removes the JIT/postcss boilerplate; shadcn/ui supports it. Anthropic SDK pinned at `^0.40.0`; `@vercel/kv` and `@vercel/og` included now so L2.3/L2.6 don't reopen this manifest. No `next.config.ts` yet — that lands with L2.1 when the app skeleton goes in.
+- **D-007** TypeScript strict-mode dial-up: in addition to `strict: true`, L1.2's `tsconfig.json` enables `noUncheckedIndexedAccess`, `noImplicitOverride`, and `noFallthroughCasesInSwitch`. Cheap insurance against the two failure modes most likely on this codebase — silent `undefined` from cache hits keyed by slug, and a switch on `confidence` levels in the result renderer. Module resolution set to `bundler` to match Next.js 15 / TS 5.7 defaults; `@/*` path alias points at the repo root so imports stay flat (no `src/` directory planned).
 

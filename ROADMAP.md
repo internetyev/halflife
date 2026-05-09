@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-09_
+_Last updated: 2026-05-09 (L1.2 merged)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -18,7 +18,7 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 ## Phase 1 — Foundation (Sprint 1, ~5 daily runs)
 
 - [x] L1.1 Decide and commit `package.json` with Next.js 15 + TS + Tailwind + shadcn/ui scaffolding (no install, just the manifest + config files)
-- [ ] L1.2 Add `.gitignore`, `.env.example` (lists `ANTHROPIC_API_KEY`, `KV_*`), `tsconfig.json`, basic `README.md` rewrite
+- [x] L1.2 Add `.gitignore`, `.env.example` (lists `ANTHROPIC_API_KEY`, `KV_*`), `tsconfig.json`, basic `README.md` rewrite
 - [ ] L1.3 Write `docs/methodology.md` — how the obsolescence score is constructed, what dimensions the prompt evaluates, how confidence is reported, and the disclaimers
 - [ ] L1.4 Draft v1 of the Claude prompt(s) in `prompts/role-analysis.md` — single structured tool-use call returning `{ score, countdown_years, ai_tools[], pivot_steps[], confidence, sources_hint[] }`
 - [ ] L1.5 Run a manual prompt eval: pick 10 representative roles, capture Claude's JSON output for each in `evals/role-analysis-baseline.csv`, qualitatively rate consistency. Use `corgi-cli` only if needed for keyword research; otherwise zero external spend.
