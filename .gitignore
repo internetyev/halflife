@@ -1,0 +1,56 @@
+# Dependencies — installs are a human step (see ROUTINE.md), but the routine
+# may eventually generate lockfiles and the human commits them by hand.
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Next.js build output
+/.next/
+/out/
+/build
+
+# Production
+/dist
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Test / coverage
+/coverage
+*.lcov
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Env files — only `.env.example` is committed
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+
+# Vercel / deploy
+.vercel
+
+# Editor and OS noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code local artifacts (the global config lives in $HOME, not here)
+.claude/settings.local.json
+
+# Routine scratch — logs from launchd-driven runs that should not pollute git
+/.routine-runs/
