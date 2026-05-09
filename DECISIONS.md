@@ -9,3 +9,8 @@ Append-only ADR-style log. One line per decision unless the rationale is non-obv
 - **D-003** Stack starting position: Next.js 15 App Router + TS + Tailwind + shadcn/ui on Vercel; Anthropic Claude Sonnet 4.6 with prompt caching; Vercel KV for the result cache. Re-evaluatable in Phase 1 if the routine surfaces a real reason to switch.
 - **D-004** Daily autonomous routine, ≤10 commands/run, 03:00 Europe/Madrid, ≤$1/wk corgi spend. Routine is forbidden from running `npm install`, deploying, buying domains, or sending external messages.
 - **D-005** Caching strategy: KV keyed by slugified job title, 30-day TTL. Trades freshness for cost; 30 days is long enough to amortise paid traffic, short enough that a major model release will refresh results within a month.
+
+## 2026-05-09
+
+- **D-006** Version pins for the L1.1 scaffold: Next.js 15.1, React 19, TypeScript 5.7, Tailwind v4 (with `@tailwindcss/postcss`), shadcn/ui (`new-york` style, `neutral` base, RSC + tsx). Tailwind v4 picked over v3 because it's stable as of mid-2025 and removes the JIT/postcss boilerplate; shadcn/ui supports it. Anthropic SDK pinned at `^0.40.0`; `@vercel/kv` and `@vercel/og` included now so L2.3/L2.6 don't reopen this manifest. No `next.config.ts` yet — that lands with L2.1 when the app skeleton goes in.
+
