@@ -9,7 +9,16 @@
 
 import type Anthropic from "@anthropic-ai/sdk";
 
+import type { RoleAnalysisToolInput } from "@/lib/scoring/types";
+
 export const ROLE_ANALYSIS_TOOL_NAME = "submit_role_analysis" as const;
+
+// Sonnet 4.6 — pinned in D-012/D-016. Lives next to the prompt and tool
+// schema (rather than in the route) so a model bump and a prompt edit are
+// reviewed together; cache keys compose methodology_version × prompt_version
+// and a stray env var should not silently swap the production model.
+const MODEL = "claude-sonnet-4-6";
+const MAX_TOKENS = 2048;
 
 type ToolDefinition = Anthropic.Messages.Tool;
 
@@ -188,4 +197,57 @@ export function buildUserMessage(rawTitle: string): string {
 Role: ${rawTitle}
 
 Call submit_role_analysis exactly once.`;
+}
+
+// Thrown when the model returns no `submit_role_analysis` tool_use block,
+// despite tool_choice forcing it. Distinguished from network/upstream errors
+// so the route can map it to a 502 with a stable message.
+export class RoleAnalysisToolMissingError extends Error {
+  constructor() {
+    super("Model did not invoke the submit_role_analysis tool.");
+    this.name = "RoleAnalysisToolMissingError";
+  }
+}
+
+// One forced tool-use call against Claude. Returns the model's tool input
+// verbatim — score derivation and response shaping happen in lib/scoring.
+// Caller owns the Anthropic client (so tests / scripts can inject one) and
+// owns retry / backoff (the route does neither today).
+export async function analyzeRole(
+  client: Anthropic,
+  rawTitle: string,
+): Promise<RoleAnalysisToolInput> {
+  const response = await client.messages.create({
+    model: MODEL,
+    max_tokens: MAX_TOKENS,
+    system: [
+      {
+        type: "text",
+        text: ROLE_ANALYSIS_SYSTEM_PROMPT,
+        cache_control: { type: "ephemeral" },
+      },
+    ],
+    tools: [
+      {
+        ...ROLE_ANALYSIS_TOOL,
+        cache_control: { type: "ephemeral" },
+      },
+    ],
+    tool_choice: { type: "tool", name: ROLE_ANALYSIS_TOOL_NAME },
+    messages: [
+      {
+        role: "user",
+        content: buildUserMessage(rawTitle),
+      },
+    ],
+  });
+
+  const toolUse = response.content.find(
+    (block) =>
+      block.type === "tool_use" && block.name === ROLE_ANALYSIS_TOOL_NAME,
+  );
+  if (!toolUse || toolUse.type !== "tool_use") {
+    throw new RoleAnalysisToolMissingError();
+  }
+  return toolUse.input as RoleAnalysisToolInput;
 }

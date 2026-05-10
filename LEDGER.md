@@ -13,3 +13,4 @@ External-data spend (corgi-cli, ad-hoc API calls). Append-only. Reset the rollin
 | 2026-05-10 | L1.6  | — | 0.00 | ADRs only (stack ratification + naming-evaluation criteria) — pure prose edits to `DECISIONS.md`, no external calls. |
 | 2026-05-10 | L1.7a | corgi-serp | 0.00 | One `corgi-serp --dry-run` to confirm $0.0006/query estimate; live SERP probes deferred to L1.7b because `DATAFORSEO_LOGIN` is not configured on this laptop. |
 | 2026-05-10 | L2.2  | — | 0.00 | Implement analyze route + scoring lib + prompt-as-TS-constants. Pure code edits, no live Claude calls from the routine; live calls happen when the human runs `next dev` with `ANTHROPIC_API_KEY`. |
+| 2026-05-11 | L2.3  | — | 0.00 | KV cache layer (`lib/cache/role-cache.ts`) + analyzeRole extraction. Pure code edits, no DataForSEO calls. KV calls happen at runtime against the human's linked Vercel KV store; the cache no-ops when env vars are absent so dev still works. |

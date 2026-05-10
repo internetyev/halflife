@@ -3,33 +3,28 @@
 // Body: { title: string }
 // Returns: RoleAnalysisResult (see lib/scoring/types.ts)
 //
-// L2.2 scope: live Claude call, no cache. KV cache lands in L2.3 — when it
-// does, the wrapper sits in front of analyzeRole() and the route body shrinks
-// to (lookup → miss → analyzeRole → store → return).
+// Flow: validate input → KV lookup → on miss, call Claude via analyzeRole()
+// → derive score/countdown via buildResult() → write to KV → return.
+// The cache is a no-op when KV env vars are absent (see lib/cache/role-cache),
+// so the route still serves live results in `next dev` without a linked store.
 //
-// Tool-use is forced via `tool_choice`; non-tool model output is discarded
-// per D-010. Prompt caching is enabled on the system prompt and tool block
-// so repeat calls inside the 5-minute TTL skip re-sending the rubric.
+// `x-halflife-cache: HIT|MISS` is set on every 200 response — useful for
+// eyeballing cache behaviour from the browser devtools and for the L3.2
+// programmatic-seed script to count Claude calls vs. KV reads.
 
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 
 import {
-  ROLE_ANALYSIS_SYSTEM_PROMPT,
-  ROLE_ANALYSIS_TOOL,
-  ROLE_ANALYSIS_TOOL_NAME,
-  buildUserMessage,
+  RoleAnalysisToolMissingError,
+  analyzeRole,
 } from "@/lib/anthropic/role-analysis";
+import { getCachedRole, setCachedRole } from "@/lib/cache/role-cache";
 import { buildResult } from "@/lib/scoring";
 import type { RoleAnalysisToolInput } from "@/lib/scoring/types";
 
 export const runtime = "nodejs";
 
-// Sonnet 4.6 — fixed in D-012. A model bump is a deliberate code change so
-// the cache key (methodology_version × prompt_version) reflects it; pinning
-// here keeps a stray env var from silently changing the production model.
-const MODEL = "claude-sonnet-4-6";
-const MAX_TOKENS = 2048;
 const MAX_TITLE_LENGTH = 200;
 
 const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -74,52 +69,34 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  let response: Anthropic.Messages.Message;
-  try {
-    response = await client.messages.create({
-      model: MODEL,
-      max_tokens: MAX_TOKENS,
-      system: [
-        {
-          type: "text",
-          text: ROLE_ANALYSIS_SYSTEM_PROMPT,
-          cache_control: { type: "ephemeral" },
-        },
-      ],
-      tools: [
-        {
-          ...ROLE_ANALYSIS_TOOL,
-          cache_control: { type: "ephemeral" },
-        },
-      ],
-      tool_choice: { type: "tool", name: ROLE_ANALYSIS_TOOL_NAME },
-      messages: [
-        {
-          role: "user",
-          content: buildUserMessage(rawTitle),
-        },
-      ],
+  const cached = await getCachedRole(rawTitle);
+  if (cached) {
+    return NextResponse.json(cached.result, {
+      status: 200,
+      headers: { "x-halflife-cache": "HIT" },
     });
+  }
+
+  let toolInput: RoleAnalysisToolInput;
+  try {
+    toolInput = await analyzeRole(client, rawTitle);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown upstream error.";
+    if (err instanceof RoleAnalysisToolMissingError) {
+      return NextResponse.json({ error: err.message }, { status: 502 });
+    }
+    const message =
+      err instanceof Error ? err.message : "Unknown upstream error.";
     return NextResponse.json(
       { error: `Claude request failed: ${message}` },
       { status: 502 },
     );
   }
 
-  const toolUse = response.content.find(
-    (block) =>
-      block.type === "tool_use" && block.name === ROLE_ANALYSIS_TOOL_NAME,
-  );
-  if (!toolUse || toolUse.type !== "tool_use") {
-    return NextResponse.json(
-      { error: "Model did not invoke the submit_role_analysis tool." },
-      { status: 502 },
-    );
-  }
-
-  const toolInput = toolUse.input as RoleAnalysisToolInput;
   const result = buildResult(rawTitle, toolInput);
-  return NextResponse.json(result, { status: 200 });
+  await setCachedRole(rawTitle, toolInput, result);
+
+  return NextResponse.json(result, {
+    status: 200,
+    headers: { "x-halflife-cache": "MISS" },
+  });
 }
