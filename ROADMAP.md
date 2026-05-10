@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-10 (L1.7 split into L1.7a routine-scored draft + L1.7b human-gated final pick)_
+_Last updated: 2026-05-10 (L2.1 Next.js skeleton committed; install remains a human step)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -29,7 +29,7 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 
 ## Phase 2 — Core MVP (Sprint 2, ~7 daily runs)
 
-- [ ] L2.1 Scaffold the Next.js app skeleton (only commit code; no `npm install` in the routine — install is a human step)
+- [x] L2.1 Scaffold the Next.js app skeleton (only commit code; no `npm install` in the routine — install is a human step)
 - [ ] L2.2 Implement `app/api/analyze/route.ts` calling Claude with the v1 prompt + tool-use schema
 - [ ] L2.3 Implement KV cache layer keyed by slugified job title, 30-day TTL
 - [ ] L2.4 Build the input form `app/page.tsx`
