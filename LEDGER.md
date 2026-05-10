@@ -12,3 +12,4 @@ External-data spend (corgi-cli, ad-hoc API calls). Append-only. Reset the rollin
 | 2026-05-09 | L1.5a | — | 0.00 | Eval scaffold — 10 baseline roles + CSV header + procedure doc, no external calls. Actual eval API spend lands under L1.5b when the human runs it. |
 | 2026-05-10 | L1.6  | — | 0.00 | ADRs only (stack ratification + naming-evaluation criteria) — pure prose edits to `DECISIONS.md`, no external calls. |
 | 2026-05-10 | L1.7a | corgi-serp | 0.00 | One `corgi-serp --dry-run` to confirm $0.0006/query estimate; live SERP probes deferred to L1.7b because `DATAFORSEO_LOGIN` is not configured on this laptop. |
+| 2026-05-10 | L2.2  | — | 0.00 | Implement analyze route + scoring lib + prompt-as-TS-constants. Pure code edits, no live Claude calls from the routine; live calls happen when the human runs `next dev` with `ANTHROPIC_API_KEY`. |
