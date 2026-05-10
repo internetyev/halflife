@@ -1,12 +1,11 @@
-# halflife — Naming Shortlist (L1.7a working draft)
+# halflife — Naming Shortlist (L1.7b — SERP data merged)
 
-_Last updated: 2026-05-10. Status: **partial pass** — internal-criteria scoring complete; hard-gate verification pending L1.7b (needs `DATAFORSEO_LOGIN` for `corgi-serp` SERP probes + human registrar/trademark checks). The recommendation below is conditional on L1.7b clearing the four hard gates in [D-013](../DECISIONS.md)._
+_Last updated: 2026-05-11. Status: **gate 4 measured** — corgi-serp run against the 6 unique candidate roots (`halflife`, `obsolesce`, `replaced`, `replacedby`, `roleclock`, `until`), geo=US, depth=10, mode=standard. Spend: ~$0.004 (7 queries × $0.0006 incl. one head-term probe), logged in LEDGER. Gates 1 (TM), 2 (.com collision), 3 (registrar price) remain human-verifiable._
 
-## Why this is partial
+## Measurement notes
 
-The L1.7 routine ran on a laptop with `corgi-serp` installed but no DataForSEO credentials configured (no `DATAFORSEO_LOGIN`, no `~/.corgi/config.yaml`). D-013 gate (4) requires a corgi-keywords SERP snapshot — substituting WebSearch would diverge from the ADR's measurement protocol, so the routine split L1.7 → L1.7a (this doc, internal scoring) + L1.7b (human-gated, see ROADMAP).
-
-Likewise, gates (1) trademark and (3) registrar list-price are not authoritatively verifiable from this laptop without external API or registrar-account access; D-013 marks the actual purchase as L5.1 human-gated, so those gates are flagged here as **routine best-effort estimates** to be verified before purchase, not blocking decisions.
+- Gate 4 is now measured, not predicted. The earlier L1.7a predictions were correct for `halflife.*` and `replaced.by` (both dominated by video-game franchises) but **wrong for `until`** — the SERP is dictionary/grammar content, no brand collisions in the top 10.
+- Gates 1, 3 still need human action (USPTO/EUIPO TM search + registrar list-price check). Gate 2 (.com collision) is browser-verifiable; routine best-effort estimates retained below.
 
 ## Candidates
 
@@ -27,18 +26,18 @@ No same-spirit additions in this pass — keep the matrix tight; let L1.7b add c
 
 D-013 hard gates: any failure → drop the candidate, no scoring. The routine's confidence on each gate is annotated. **All gate verdicts here are preliminary.**
 
-| # | Candidate | (1) TM clear? | (2) Live product on combo / .com collision | (3) ≤ $200/yr? | (4) SERP-noise (top-10 unrelated brands) | Verdict |
+| # | Candidate | (1) TM | (2) .com collision | (3) ≤ $200/yr | (4) SERP top-10 brands (measured) | Verdict |
 |---|---|---|---|---|---|---|
-| 1 | `halflife.work` | likely (no AI-tools/jobs-class TM expected on the bare word) | **collision risk: HIGH** — `halflife.com` is the Valve gaming franchise (game collision, not jobs/AI, but the brand-fight reading of D-013 gate 2 still applies to the .com test) | likely (.work is cheap, $5–15) | **TBD: corgi probe pending — predicted HIGH** (Valve "Half-Life" + physics half-life dominate top results) | **likely DROP** on gate 2 + gate 4 |
-| 2 | `halflife.ai` | likely | same .com collision as #1 | **likely fails** — `.ai` premiums on real-word names often blow past $200/yr; `halflife.ai` may also be in aftermarket | same as #1 | **likely DROP** on gate 2 + gate 4; possibly gate 3 |
-| 3 | `halflife.jobs` | likely | same .com collision as #1 | **likely fails** — `.jobs` registration is restricted (Employ Media policy) and pricing is high (~$120+/yr at Tier-1 registrars), but the bigger blocker is the policy gate, not the price | same as #1 | **likely DROP** on gate 2 + gate 4; gate 3 risk |
-| 4 | `obsolesce.me` | likely (rare verb, low TM saturation) | low collision risk (`obsolesce.com` is unlikely to be a major brand) | likely (.me is $20–30/yr) | **TBD: corgi probe pending — predicted LOW** (rare word, mostly dictionary results expected) | **plausible** — proceed to L1.7b |
-| 5 | `replaced.by` | likely (common past-participle, hard to TM, but generic-class TM possible) | unclear — `replaced.com` exists as a generic placeholder; case-by-case review | unclear — `.by` is the Belarus ccTLD, registration may have eligibility/political-risk caveats | **TBD: corgi probe pending — predicted HIGH** ("replaced" is a high-frequency English verb) | **likely DROP** on gate 4; gate 3 caveat |
-| 6 | `replacedby.ai` | likely | low collision risk on `replacedby.com` (unusual compound) | likely fails — premium .ai pricing on this length is borderline; possibly $50–150/yr if available, but check aftermarket | **TBD: corgi probe pending — predicted LOW** (unusual compound, near-empty SERP expected) | **plausible** — proceed to L1.7b |
-| 7 | `roleclock.ai` | likely (novel compound) | low collision risk on `roleclock.com` | likely (.ai standard registration) | **TBD: corgi probe pending — predicted LOW** (novel compound, near-empty SERP expected) | **plausible** — proceed to L1.7b |
-| 8 | `until.ai` | likely | possible collision — "Until" is a brand name in financial services + AI; check `until.com` and AI-tools class TM | likely fails — `until.ai` on a four-letter dictionary word is almost certainly aftermarket / premium-priced | **TBD: corgi probe pending — predicted VERY HIGH** ("until" is one of the highest-frequency English prepositions) | **likely DROP** on gate 4; possibly gate 1 + gate 3 |
+| 1 | `halflife.work` | TBD-human | **FAIL** — `halflife.com` Valve franchise | likely (.work $5–15) | **FAIL — 6** (Wikipedia game pages, Steam store, half-life.com, Fandom, IMDB, r/HalfLife) | **DROP** on gate 2 + gate 4 |
+| 2 | `halflife.ai` | TBD-human | same as #1 | likely fails — `.ai` premium on real-word | same as #1 | **DROP** |
+| 3 | `halflife.jobs` | TBD-human | same as #1 | `.jobs` Employ-Media policy gate + ~$120/yr+ | same as #1 | **DROP** |
+| 4 | `obsolesce.me` | TBD-human | low (rare verb) | likely (.me $20–30) | **PASS — 0** (dictionary/thesaurus only: Merriam-Webster, dictionary.com, Wikipedia, Thesaurus, Vocabulary, Cambridge, Wiktionary) | **SURVIVES — strongest gate-4 result** |
+| 5 | `replaced.by` | TBD-human | `replaced.com` generic | `.by` Belarus ccTLD eligibility risk | **FAIL — 5+** ("REPLACED" indie game: Steam, playreplaced.com, Wikipedia, Xbox, Metacritic, Reddit, GamingTrend) | **DROP** on gate 4 (+ gate 3 risk) |
+| 6 | `replacedby.ai` | TBD-human | low (unusual compound) | possibly aftermarket — check | **PASS — 0** (grammar Q&A only: StackExchange, Reddit r/grammar, Quora, Ludwig, WordHippo) | **SURVIVES** |
+| 7 | `roleclock.ai` | TBD-human | low (novel compound) | likely standard `.ai` | **PASS — 1–2 fuzzy** (no exact-name brand; "Rollock" safety clamp + 3M "Roloc" abrasive disc + Aliexpress wall-clock listings — Google is fuzzy-matching "role" + "clock", not the compound) | **SURVIVES** |
+| 8 | `until.ai` | TBD-human | possible — "Until" fintech/AI brands exist | likely fails — 5-char real-word premium | **PASS — 0** (dictionary/grammar only — earlier prediction was wrong) | **SURVIVES on gate 4**; likely DROP on gate 3 + gate 1 risk |
 
-The three candidates that survive routine-best-effort gates and are worth scoring: **`obsolesce.me`**, **`replacedby.ai`**, **`roleclock.ai`**. The five `halflife.*` / `replaced.by` / `until.ai` candidates are scored anyway for completeness, but the routine flags each as failing-likely on the noted gates.
+**Survivors after measured gate 4:** `obsolesce.me`, `replacedby.ai`, `roleclock.ai`, `until.ai`. The latter survives gate 4 but is at high risk on gates 1 (TM — "Until" exists as fintech/AI brand) and 3 (premium `.ai` pricing on a 5-char real-word).
 
 ## Scored dimensions (D-013 rubric)
 
@@ -72,28 +71,27 @@ The matrix below excludes the SERP column (TBD). Routine-scorable subtotal max =
 - **`roleclock.ai` (Sem 3, all dimensions ≥ 2)** — "role" + "clock" maps directly onto the countdown product mechanic. Compound but tight (9 chars), pronounceable cold, top-tier TLD.
 - **`until.ai` (Sem 1, Mem 3)** — single morpheme + 5-char URL is the memorability ceiling, but the semantic frame is too generic; a "until" countdown could be about anything.
 
-## Tentative recommendation (conditional)
+## Recommendation (after gate-4 measurement)
 
-**`roleclock.ai`** — leads on routine-scored subtotal (20/21), low score variance (no one-dimension wonder), and is the strongest survivor on the routine's preliminary gate read (low predicted SERP noise, novel compound, standard `.ai` pricing).
+**`roleclock.ai`** remains the lead — 20/21 routine-scored subtotal, lowest variance, novel compound, no exact-name brand collision. The fuzzy "Rollock" + 3M "Roloc" results are visually distinct from "roleclock" and do not compete on the same query.
 
-**Runner-up:** `replacedby.ai` (19/21) — equal semantic strength, slightly weaker on memorability because of the compound form. Worth keeping in the L1.7b shortlist as the fallback if `roleclock.ai` fails a hard gate.
+**Runner-up: `obsolesce.me`** — promoted from third place by the measured data. The cleanest SERP of all candidates (0 brand collisions; pure dictionary content). The earlier L1.7a markdown was conservative on the pronounceability dimension; for a journalist-citation use-case "obsolesce" is harder to say cold than "roleclock," but the SERP cleanness and semantic precision ("your role is going obsolete") are real edges. Worth a serious second look before final decision.
 
-**Conditional on L1.7b confirming:**
-1. `roleclock.ai` is registrable at standard `.ai` pricing (≤ $200/yr; not in aftermarket / not a premium SLD).
-2. `roleclock.com` is not a live competing product.
-3. No registered AI-tools / jobs-board / career-coaching trademark on "roleclock".
-4. `corgi-serp --query roleclock --geo us --depth 10` returns ≤ 3 unrelated established brands in the top 10.
+**Third: `replacedby.ai`** — equally clean SERP (0 collisions), but compound + ".ai" makes it 13 characters typed and reads as a sentence, which is share-card-friendly but slug-unfriendly.
 
-If any of those four fails, fall through to `replacedby.ai` and re-run gates.
+**Drop:** `halflife.*` (Valve collision), `replaced.by` ("REPLACED" game collision). `until.ai` is gate-4-clean but high-risk on TM + price; not recommended.
 
-## What L1.7b needs to do
+## Remaining human-gated checks before purchase (L5.1)
 
-1. Configure DataForSEO credentials on the routine's laptop (`DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD` env vars or `~/.corgi/config.yaml`).
-2. Run `corgi-serp --batch` over the bare names of the surviving candidates (`obsolesce`, `replacedby`, `roleclock`, plus any rescued `halflife`/`replaced`/`until` if the routine's preliminary gate read was too pessimistic). Estimated cost: ~$0.0006 per query × ≤ 8 queries = **≤ $0.005** of corgi spend, well inside the $0.30 cap from D-013.
-3. For each survivor, count top-10 organic results that are unrelated established brands (gaming, physics, finance, etc.). Drop any candidate with > 3.
-4. Verify gate (1) TM via USPTO + EUIPO TM-search (web), gate (2) live product via direct browser check on `name + TLD` and `name.com`, gate (3) registrar list-price via Namecheap / Porkbun / 101domain.
-5. Update this doc: replace each "TBD" cell with the measured value, update the verdict column, and finalize the **single bolded recommendation** at the bottom. Log the corgi spend to LEDGER.md.
+For each of `roleclock.ai`, `obsolesce.me`, `replacedby.ai`:
+
+1. **Gate 1 — TM:** USPTO TESS + EUIPO eSearch on the bare word in classes 9, 35, 42 (software / advertising / SaaS).
+2. **Gate 2 — `.com` collision:** browser-check `roleclock.com`, `obsolesce.com`, `replacedby.com` for live competing product. Empty parking pages and 404s don't fail this gate; an active brand does.
+3. **Gate 3 — registrar list price:** Namecheap / Porkbun / 101domain quote, confirm ≤ $200/yr (no aftermarket / premium SLD).
+
+The corgi gate-4 pass is the only one that needed the autonomous routine. The other three each take ≤ 5 minutes in a browser.
 
 ## Cost log
 
-This run (L1.7a): corgi spend $0.00 (one dry-run only, no live API call). LEDGER updated accordingly.
+- L1.7a: $0.00 (dry-run only)
+- **L1.7b (this pass): $0.004** — 6 batched naming queries × $0.0006 + 1 head-term diagnostic on `google reviews download` (used in a separate g-r-d note); LEDGER updated.
