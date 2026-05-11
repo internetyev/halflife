@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-11 (L2.4 input form wired to `/api/analyze`; install + live API key + linked KV store remain human steps)_
+_Last updated: 2026-05-11 (L2.5 polished result card extracted to `components/result-card.tsx`; install + live API key + linked KV store remain human steps)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -33,7 +33,7 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 - [x] L2.2 Implement `app/api/analyze/route.ts` calling Claude with the v1 prompt + tool-use schema
 - [x] L2.3 Implement KV cache layer keyed by slugified job title, 30-day TTL
 - [x] L2.4 Build the input form `app/page.tsx` — client component posts to `/api/analyze`, idle/loading/error/result states, surfaces `x-halflife-cache`; minimal inline result preview so the form is end-to-end testable. Polished card is L2.5.
-- [ ] L2.5 Build the result card component (countdown, score gauge, tools list, pivot steps)
+- [x] L2.5 Build the result card component (countdown, score gauge, tools list, pivot steps) — `components/result-card.tsx` with a 5-band score gauge (Urgent/At-risk/Contested/Durable/Stable), confidence chip + low-confidence banner, sources-hint pills, and a methodology/cache footer; `app/page.tsx` no longer carries an inline preview.
 - [ ] L2.6 Add OG image route `app/api/og/[slug]/route.tsx` (Vercel OG / Satori)
 - [ ] L2.7 Add per-role static pages `app/role/[slug]/page.tsx` reading from precomputed JSON
 - [ ] L2.8 Wire share buttons (LinkedIn-first, then Twitter/X, then copy-link)

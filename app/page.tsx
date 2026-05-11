@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 
+import { ResultCard } from "@/components/result-card";
 import type { RoleAnalysisResult } from "@/lib/scoring/types";
 
 type ViewState =
@@ -133,74 +134,14 @@ export default function HomePage() {
           </p>
         )}
 
-        {view.status === "result" && <ResultPreview view={view} />}
+        {view.status === "result" && (
+          <ResultCard result={view.result} cache={view.cache} />
+        )}
       </section>
 
       <footer className="mt-auto pt-12 text-xs text-[var(--color-muted-foreground)]">
-        Polished result card lands in L2.5. This page renders the raw fields
-        so the L2.4 form is end-to-end testable against `/api/analyze`.
+        Per-role share routes (`/role/[slug]`) and OG cards land in L2.6–L2.8.
       </footer>
     </main>
-  );
-}
-
-function ResultPreview({
-  view,
-}: {
-  view: { status: "result"; result: RoleAnalysisResult; cache: "HIT" | "MISS" };
-}) {
-  const r = view.result;
-  return (
-    <article className="flex flex-col gap-6 rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)]/40 p-5">
-      <div>
-        <p className="text-xs uppercase tracking-wide text-[var(--color-muted-foreground)]">
-          {r.normalized_title}
-        </p>
-        <div className="mt-1 flex flex-wrap items-baseline gap-x-6 gap-y-1">
-          <p className="text-3xl font-semibold">
-            {r.countdown_years} <span className="text-base font-normal">years</span>
-          </p>
-          <p className="text-sm text-[var(--color-muted-foreground)]">
-            survival score{" "}
-            <span className="font-medium text-[var(--color-foreground)]">
-              {r.score}/100
-            </span>{" "}
-            · confidence {r.confidence}
-          </p>
-        </div>
-      </div>
-
-      {r.ai_tools.length > 0 && (
-        <section>
-          <h2 className="text-sm font-semibold">AI tools already chipping away</h2>
-          <ul className="mt-2 space-y-1 text-sm">
-            {r.ai_tools.map((t) => (
-              <li key={`${t.vendor}:${t.name}`}>
-                <span className="font-medium">{t.name}</span>{" "}
-                <span className="text-[var(--color-muted-foreground)]">
-                  ({t.vendor}) — {t.what_it_automates}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {r.pivot_steps.length > 0 && (
-        <section>
-          <h2 className="text-sm font-semibold">Pivot steps</h2>
-          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm">
-            {r.pivot_steps.map((step, i) => (
-              <li key={i}>{step}</li>
-            ))}
-          </ol>
-        </section>
-      )}
-
-      <p className="text-[10px] uppercase tracking-wider text-[var(--color-muted-foreground)]">
-        cache {view.cache} · methodology v{r.methodology_version} · prompt v
-        {r.prompt_version}
-      </p>
-    </article>
   );
 }
