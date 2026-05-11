@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-11 (L2.5 polished result card extracted to `components/result-card.tsx`; install + live API key + linked KV store remain human steps)_
+_Last updated: 2026-05-11 (L2.6 OG share-card route at `app/api/og/[slug]/route.tsx`, edge runtime, KV-backed with generic fallback; install + live API key + linked KV store remain human steps)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -34,7 +34,7 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 - [x] L2.3 Implement KV cache layer keyed by slugified job title, 30-day TTL
 - [x] L2.4 Build the input form `app/page.tsx` — client component posts to `/api/analyze`, idle/loading/error/result states, surfaces `x-halflife-cache`; minimal inline result preview so the form is end-to-end testable. Polished card is L2.5.
 - [x] L2.5 Build the result card component (countdown, score gauge, tools list, pivot steps) — `components/result-card.tsx` with a 5-band score gauge (Urgent/At-risk/Contested/Durable/Stable), confidence chip + low-confidence banner, sources-hint pills, and a methodology/cache footer; `app/page.tsx` no longer carries an inline preview.
-- [ ] L2.6 Add OG image route `app/api/og/[slug]/route.tsx` (Vercel OG / Satori)
+- [x] L2.6 Add OG image route `app/api/og/[slug]/route.tsx` (Vercel OG / Satori) — edge runtime, 1200×630, reads KV by slug via `getCachedRoleBySlug` and renders the same five-band visual taxonomy (D-019) as `components/result-card.tsx`; generic "score your role" fallback for fresh slugs and unconfigured KV so share previews never break.
 - [ ] L2.7 Add per-role static pages `app/role/[slug]/page.tsx` reading from precomputed JSON
 - [ ] L2.8 Wire share buttons (LinkedIn-first, then Twitter/X, then copy-link)
 - [ ] L2.9 Add basic Plausible analytics snippet
