@@ -55,10 +55,18 @@ export function roleCacheKey(slug: string): string {
 export async function getCachedRole(
   rawTitle: string,
 ): Promise<CachedRoleAnalysis | null> {
+  return getCachedRoleBySlug(slugify(rawTitle));
+}
+
+// Direct lookup by an already-slugified key. Used by share routes
+// (`/api/og/[slug]`, L2.6) where the route param is the slug itself.
+export async function getCachedRoleBySlug(
+  slug: string,
+): Promise<CachedRoleAnalysis | null> {
   if (!client) return null;
-  const key = roleCacheKey(slugify(rawTitle));
+  if (!slug) return null;
   try {
-    const value = await client.get<CachedRoleAnalysis>(key);
+    const value = await client.get<CachedRoleAnalysis>(roleCacheKey(slug));
     return value ?? null;
   } catch {
     return null;

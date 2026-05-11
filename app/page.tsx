@@ -140,7 +140,8 @@ export default function HomePage() {
       </section>
 
       <footer className="mt-auto pt-12 text-xs text-[var(--color-muted-foreground)]">
-        Per-role share routes (`/role/[slug]`) and OG cards land in L2.6–L2.8.
+        Per-role share routes (`/role/[slug]`) and share buttons land in
+        L2.7–L2.8.
       </footer>
     </main>
   );
