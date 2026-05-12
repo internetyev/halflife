@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-11 (L2.6 OG share-card route at `app/api/og/[slug]/route.tsx`, edge runtime, KV-backed with generic fallback; install + live API key + linked KV store remain human steps)_
+_Last updated: 2026-05-11 (L2.7 per-role page at `app/role/[slug]/page.tsx`, reads precomputed JSON then falls back to KV; 404s when neither has data; OG metadata points at `/api/og/[slug]`)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -35,7 +35,7 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 - [x] L2.4 Build the input form `app/page.tsx` — client component posts to `/api/analyze`, idle/loading/error/result states, surfaces `x-halflife-cache`; minimal inline result preview so the form is end-to-end testable. Polished card is L2.5.
 - [x] L2.5 Build the result card component (countdown, score gauge, tools list, pivot steps) — `components/result-card.tsx` with a 5-band score gauge (Urgent/At-risk/Contested/Durable/Stable), confidence chip + low-confidence banner, sources-hint pills, and a methodology/cache footer; `app/page.tsx` no longer carries an inline preview.
 - [x] L2.6 Add OG image route `app/api/og/[slug]/route.tsx` (Vercel OG / Satori) — edge runtime, 1200×630, reads KV by slug via `getCachedRoleBySlug` and renders the same five-band visual taxonomy (D-019) as `components/result-card.tsx`; generic "score your role" fallback for fresh slugs and unconfigured KV so share previews never break.
-- [ ] L2.7 Add per-role static pages `app/role/[slug]/page.tsx` reading from precomputed JSON
+- [x] L2.7 Add per-role static pages `app/role/[slug]/page.tsx` reading from precomputed JSON — server component resolves `data/roles/<slug>.json` first, falls back to `getCachedRoleBySlug` from KV, `notFound()` when both miss; `generateMetadata` wires `/api/og/[slug]` into OG + Twitter card tags. Phase 3 will swap the file-read for `generateStaticParams` once the seed JSON exists.
 - [ ] L2.8 Wire share buttons (LinkedIn-first, then Twitter/X, then copy-link)
 - [ ] L2.9 Add basic Plausible analytics snippet
 - [ ] L2.10 Write `docs/launch-checklist.md` for human sign-off before deploy
