@@ -18,6 +18,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ResultCard } from "@/components/result-card";
+import { ShareButtons } from "@/components/share-buttons";
 import { getCachedRoleBySlug } from "@/lib/cache/role-cache";
 import { slugify } from "@/lib/scoring";
 import type { RoleAnalysisResult } from "@/lib/scoring/types";
@@ -106,9 +107,11 @@ export default async function RolePage({
 }: {
   params: Promise<RouteParams>;
 }) {
-  const { slug } = await params;
-  const data = await loadRole(slug);
+  const { slug: rawSlug } = await params;
+  const data = await loadRole(rawSlug);
   if (!data) notFound();
+
+  const canonicalSlug = slugify(data.result.normalized_title).slice(0, 200);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col px-6 py-16">
@@ -126,6 +129,15 @@ export default async function RolePage({
 
       <section className="mt-10">
         <ResultCard result={data.result} cache="HIT" />
+      </section>
+
+      <section className="mt-6">
+        <ShareButtons
+          slug={canonicalSlug}
+          title={data.result.normalized_title}
+          score={data.result.score}
+          countdownYears={data.result.countdown_years}
+        />
       </section>
 
       <footer className="mt-auto pt-12 text-xs text-[var(--color-muted-foreground)]">

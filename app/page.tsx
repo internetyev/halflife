@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from "react";
 
 import { ResultCard } from "@/components/result-card";
+import { ShareButtons } from "@/components/share-buttons";
+import { slugify } from "@/lib/scoring";
 import type { RoleAnalysisResult } from "@/lib/scoring/types";
 
 type ViewState =
@@ -135,13 +137,21 @@ export default function HomePage() {
         )}
 
         {view.status === "result" && (
-          <ResultCard result={view.result} cache={view.cache} />
+          <div className="flex flex-col gap-4">
+            <ResultCard result={view.result} cache={view.cache} />
+            <ShareButtons
+              slug={slugify(view.result.normalized_title).slice(0, 200)}
+              title={view.result.normalized_title}
+              score={view.result.score}
+              countdownYears={view.result.countdown_years}
+            />
+          </div>
         )}
       </section>
 
       <footer className="mt-auto pt-12 text-xs text-[var(--color-muted-foreground)]">
-        Per-role share routes (`/role/[slug]`) and share buttons land in
-        L2.7–L2.8.
+        Share buttons link to <code>/role/[slug]</code> so the OG image
+        and metadata travel with the link.
       </footer>
     </main>
   );
