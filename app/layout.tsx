@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PlausibleAnalytics } from "@/components/plausible-analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,6 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <PlausibleAnalytics />
+      </head>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
