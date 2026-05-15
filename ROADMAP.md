@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-14 (L2.9 Plausible analytics — `components/plausible-analytics.tsx` renders `next/script` with `strategy="afterInteractive"` when `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is set, no-op otherwise; wired into `app/layout.tsx` `<head>`. Stays a single tag because Plausible's privacy-friendly script needs no consent banner per D-012.)_
+_Last updated: 2026-05-15 (L2.10 launch checklist — `docs/launch-checklist.md` codifies the human pre-flight: naming/domain (L1.7b + L5.1), Vercel + KV + env wiring, local smoke walk-through of the golden path, content/legal gates, day-of-deploy verification, first-24h alerts, post-deploy gates before the L5.3 announcement wave, and a rollback plan that leans on the dual-version cache key from D-017.)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -38,7 +38,7 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 - [x] L2.7 Add per-role static pages `app/role/[slug]/page.tsx` reading from precomputed JSON — server component resolves `data/roles/<slug>.json` first, falls back to `getCachedRoleBySlug` from KV, `notFound()` when both miss; `generateMetadata` wires `/api/og/[slug]` into OG + Twitter card tags. Phase 3 will swap the file-read for `generateStaticParams` once the seed JSON exists.
 - [x] L2.8 Wire share buttons (LinkedIn-first, then Twitter/X, then copy-link) — `components/share-buttons.tsx` client component opens LinkedIn's `share-offsite` URL, X's `intent/tweet` URL, and writes to `navigator.clipboard`. Share target is `${origin}/role/<canonical-slug>` so OG image + metadata travel with the link; rendered under the result card on both `app/page.tsx` and `app/role/[slug]/page.tsx`.
 - [x] L2.9 Add basic Plausible analytics snippet — `components/plausible-analytics.tsx` (server component) reads `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` and renders `next/script` (defer, `strategy="afterInteractive"`, `src="https://plausible.io/js/script.js"`) into `app/layout.tsx`'s `<head>`. Unset env var = no-op, so the dev laptop and unconfigured previews ship zero analytics traffic. No cookie banner needed (D-012 / PLAN.md "no cookie banner" framing).
-- [ ] L2.10 Write `docs/launch-checklist.md` for human sign-off before deploy
+- [x] L2.10 Write `docs/launch-checklist.md` for human sign-off before deploy
 
 ## Phase 3 — Programmatic SEO seed (Sprint 3, ~4 daily runs)
 
