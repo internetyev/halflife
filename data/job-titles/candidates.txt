@@ -1,0 +1,308 @@
+accountant
+account executive
+account manager
+actuary
+administrative assistant
+aerospace engineer
+agricultural worker
+air traffic controller
+aircraft mechanic
+anesthesiologist
+animator
+app developer
+architect
+art director
+artist
+assembler
+attorney
+auditor
+auto mechanic
+bank teller
+barber
+barista
+bartender
+bdr
+biomedical engineer
+bookkeeper
+brand manager
+bricklayer
+business analyst
+business consultant
+business development representative
+butcher
+buyer
+cad designer
+call center agent
+cardiologist
+caregiver
+carpenter
+cashier
+chef
+chemical engineer
+chemist
+chief executive officer
+chief financial officer
+chief marketing officer
+chief operating officer
+chief technology officer
+chiropractor
+civil engineer
+claims adjuster
+cleaner
+clinical psychologist
+cloud architect
+cloud engineer
+cnc machinist
+coach
+college professor
+commercial pilot
+community manager
+compliance officer
+composer
+computer programmer
+construction manager
+construction worker
+content creator
+content strategist
+content writer
+controller
+cook
+copy editor
+copywriter
+corporate trainer
+cosmetologist
+cost estimator
+counselor
+court reporter
+credit analyst
+customer service representative
+customer success manager
+cybersecurity analyst
+dancer
+data analyst
+data engineer
+data entry clerk
+data scientist
+database administrator
+dental hygienist
+dentist
+dermatologist
+designer
+detective
+developer
+devops engineer
+dietitian
+digital marketer
+director of operations
+dispatcher
+doctor
+dog trainer
+drafter
+driver
+economist
+editor
+electrical engineer
+electrician
+elementary school teacher
+emergency medical technician
+engineer
+english teacher
+environmental engineer
+environmental scientist
+epidemiologist
+estate agent
+event planner
+executive assistant
+fashion designer
+field service technician
+film director
+financial advisor
+financial analyst
+financial planner
+firefighter
+fitness trainer
+flight attendant
+floral designer
+food scientist
+forensic scientist
+forklift operator
+front desk agent
+full stack developer
+funeral director
+game designer
+game developer
+general contractor
+geologist
+graphic designer
+hairdresser
+hardware engineer
+head of marketing
+health coach
+healthcare administrator
+help desk technician
+home health aide
+hotel manager
+housekeeper
+hr generalist
+hr manager
+human resources specialist
+illustrator
+industrial designer
+industrial engineer
+information security analyst
+insurance agent
+interior designer
+investment banker
+it manager
+it support specialist
+janitor
+java developer
+journalist
+judge
+kindergarten teacher
+lab technician
+landscaper
+lawyer
+legal assistant
+librarian
+loan officer
+logistics coordinator
+machine learning engineer
+machinist
+maintenance technician
+makeup artist
+management consultant
+manufacturing engineer
+market research analyst
+marketing coordinator
+marketing manager
+massage therapist
+mechanic
+mechanical engineer
+medical assistant
+medical biller
+mental health counselor
+microbiologist
+midwife
+millwright
+mobile developer
+model
+mortgage broker
+musician
+network administrator
+network engineer
+nurse
+nurse practitioner
+nutritionist
+occupational therapist
+office manager
+operations analyst
+operations manager
+optician
+optometrist
+painter
+paralegal
+paramedic
+pastry chef
+pediatrician
+personal trainer
+pharmacist
+pharmacy technician
+phlebotomist
+photographer
+physical therapist
+physician
+physician assistant
+physicist
+pilot
+pipefitter
+plumber
+police officer
+political scientist
+preschool teacher
+principal
+private investigator
+product designer
+product manager
+production manager
+program manager
+project coordinator
+project manager
+property manager
+psychiatrist
+psychologist
+public relations specialist
+purchasing manager
+qa engineer
+quality assurance analyst
+quantitative analyst
+radiologic technologist
+radiologist
+real estate agent
+receptionist
+recruiter
+registered nurse
+research scientist
+respiratory therapist
+restaurant manager
+retail associate
+retail manager
+roofer
+sales associate
+sales development representative
+sales engineer
+sales manager
+sales representative
+scientist
+scrum master
+security guard
+security officer
+seo specialist
+server
+site reliability engineer
+social media manager
+social worker
+software architect
+software developer
+software engineer
+solutions architect
+sommelier
+sound engineer
+speech language pathologist
+statistician
+stockbroker
+structural engineer
+substitute teacher
+supply chain analyst
+supply chain manager
+surgeon
+surveyor
+systems administrator
+systems analyst
+tattoo artist
+tax preparer
+teacher
+teaching assistant
+technical writer
+telemarketer
+test engineer
+tour guide
+translator
+travel agent
+truck driver
+tutor
+ui designer
+ux designer
+ux researcher
+veterinarian
+veterinary technician
+video editor
+videographer
+virtual assistant
+warehouse worker
+web designer
+web developer
+welder
+writer
+yoga instructor
+zoologist
