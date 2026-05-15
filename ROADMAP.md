@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-05-15 (L2.10 launch checklist — `docs/launch-checklist.md` codifies the human pre-flight: naming/domain (L1.7b + L5.1), Vercel + KV + env wiring, local smoke walk-through of the golden path, content/legal gates, day-of-deploy verification, first-24h alerts, post-deploy gates before the L5.3 announcement wave, and a rollback plan that leans on the dual-version cache key from D-017.)_
+_Last updated: 2026-05-15 (L3.1 split into L3.1a done / L3.1b corgi-deferred — installed `corgi-keywords` is a stub; shipped a curated 308-title corpus + ranking script + interim `top-200.json` so Phase 3 isn't blocked on the credentialed volume pass. Previously: L2.10 launch checklist — `docs/launch-checklist.md` codifies the human pre-flight: naming/domain (L1.7b + L5.1), Vercel + KV + env wiring, local smoke walk-through of the golden path, content/legal gates, day-of-deploy verification, first-24h alerts, post-deploy gates before the L5.3 announcement wave, and a rollback plan that leans on the dual-version cache key from D-017.)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
@@ -42,7 +42,8 @@ Mark `[x]` when merged, `[~]` when draft PR open awaiting review, `[!]` when blo
 
 ## Phase 3 — Programmatic SEO seed (Sprint 3, ~4 daily runs)
 
-- [ ] L3.1 Source the top ~200 most-searched job titles via `corgi-keywords` (budget ≤ $0.40)
+- [x] L3.1a Curate the candidate job-title corpus + ranking script — `data/job-titles/candidates.txt` (308 deduped, sector-balanced US titles), `scripts/rank-job-titles.py` (stdlib, ranks by `corgi-keywords` volume; tolerant of the real Ahrefs JSON shape), and `data/job-titles/top-200.json|csv` shipped with `volume_source: "curated-interim"` (alphabetical-stable ordering, `volume: 0`). Unblocks L3.2–L3.4, which need the role *list*, not the ordering.
+- [ ] L3.1b Re-rank the corpus by real US search volume (**corgi-deferred**) — the routine-laptop `corgi-keywords` build is a stub (`fetch_keyword_overview` echoes params, no API call, $0.00 corgi). Run `corgi-keywords --metric keyword_overview --batch data/job-titles/candidates.txt --locale us --budget 0.40` on a non-stub build, then `python3 scripts/rank-job-titles.py --overview <dump> --top 200`. Budget ≤ $0.40, log to `LEDGER.md`. (Split off because, like L1.7a/L1.7b, the routine cannot run the credentialed external-data call here.)
 - [ ] L3.2 Run the analysis prompt over all 200 titles, store results to `data/roles/*.json` (budget: estimate first; if > $5 of Claude spend total, split across two daily runs)
 - [ ] L3.3 Generate sitemap.xml entries for `/role/[slug]`
 - [ ] L3.4 Add JSON-LD `Article` + `FAQPage` schema per role page
