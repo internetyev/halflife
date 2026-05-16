@@ -55,6 +55,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 1,
   };
 
+  // The annual report (L4.2). Always present and always 200 — it renders a
+  // self-maintaining empty state until the post-seed ranking (L4.1b) lands —
+  // so unlike a not-yet-seeded `/role/<slug>` it is always safe to advertise.
+  const report: MetadataRoute.Sitemap[number] = {
+    url: `${SITE_URL}/report/2026`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  };
+
   const roles: MetadataRoute.Sitemap = (await seededRoleSlugs()).map(
     (slug) => ({
       url: `${SITE_URL}/role/${slug}`,
@@ -64,5 +74,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  return [home, ...roles];
+  return [home, report, ...roles];
 }

@@ -23,3 +23,4 @@ External-data spend (corgi-cli, ad-hoc API calls). Append-only. Reset the rollin
 | 2026-05-16 | L3.3 | — | 0.00 | Sitemap `app/sitemap.ts` — pure code, reads `data/roles/*.json` at request time, no external calls. $0.00 corgi; Claude tokens are Max/subscription. |
 | 2026-05-16 | L3.4 | — | 0.00 | JSON-LD `lib/seo/json-ld.ts` + inline in `app/role/[slug]/page.tsx` — pure code, no external calls. $0.00 corgi; Claude tokens are Max/subscription. |
 | 2026-05-16 | L4.1a | — | 0.00 | Ranking script `scripts/rank-at-risk.mjs` — pure Node stdlib, reads `data/roles/*.json`, no external/network calls. $0.00 corgi; Claude tokens are Max/subscription. |
+| 2026-05-16 | L4.2 | — | 0.00 | Report page `app/report/2026/page.tsx` + sitemap entry — pure Next.js server component, reads `data/report/most-at-risk-2026.json` at request time, no external calls. $0.00 corgi; Claude tokens are Max/subscription. |
