@@ -50,6 +50,7 @@ Other scheduling facts:
 
 ### 3. Work in place
 
+- **The very next git-mutating command after ANY `git checkout main`** (Orient's re-baseline *or* a post-merge verify when chaining leaves) **must be the branch-create below — never `git add`/`commit`/`push` while HEAD is `main`.** Assert `git rev-parse --abbrev-ref HEAD` ≠ `main` before the first `git add`. Incident D-030 (2026-05-16): a burn run verified L3.4 on `main`, then committed+pushed L4.1a (191248c) straight to `origin/main` because it skipped this step. Do **not** force-push/reset to undo such a mistake (also forbidden) — leave the commit, report it, guard forward.
 - Create a fresh working branch **explicitly off the fetched remote tip**: `git checkout -b claude/$(date -u +%Y%m%dT%H%M%SZ)-<leaf-id> origin/main` (e.g. `claude/20260509T140000Z-L1.3`). Always pass `origin/main` as the base — never let the branch inherit a previous run's `claude/*` HEAD; that is what produced the conflicting L2.10+L3.1a bundle (PR #31).
 - Do the smallest amount of work that completes the leaf.
 - Update `ROADMAP.md`: mark the leaf `[~]` (draft, wants review) or `[x]` (ready to merge).
