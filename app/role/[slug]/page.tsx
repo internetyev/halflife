@@ -22,6 +22,7 @@ import { ShareButtons } from "@/components/share-buttons";
 import { getCachedRoleBySlug } from "@/lib/cache/role-cache";
 import { slugify } from "@/lib/scoring";
 import type { RoleAnalysisResult } from "@/lib/scoring/types";
+import { serializeRoleJsonLd } from "@/lib/seo/json-ld";
 
 interface RouteParams {
   slug: string;
@@ -112,9 +113,17 @@ export default async function RolePage({
   if (!data) notFound();
 
   const canonicalSlug = slugify(data.result.normalized_title).slice(0, 200);
+  const jsonLd = serializeRoleJsonLd(data.result, canonicalSlug);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col px-6 py-16">
+      {/* Article + FAQPage structured data (L3.4). `serializeRoleJsonLd`
+          escapes `<` so model-generated prose can't break out of the
+          element. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd }}
+      />
       <header>
         <p className="text-xs uppercase tracking-wider text-[var(--color-muted-foreground)]">
           halflife
