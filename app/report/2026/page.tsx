@@ -19,6 +19,7 @@ import path from "node:path";
 
 import type { Metadata } from "next";
 
+import { EmailCapture } from "@/components/email-capture";
 import type { ConfidenceLevel } from "@/lib/scoring/types";
 
 const REPORT_YEAR = 2026;
@@ -237,6 +238,21 @@ export default async function ReportPage() {
           </ol>
         </section>
       )}
+
+      <section
+        aria-labelledby="capture-heading"
+        className="mt-12 rounded-xl border border-[var(--color-border)] bg-[var(--color-muted)]/20 p-6"
+      >
+        <h2 id="capture-heading" className="text-sm font-semibold">
+          Get the {REPORT_YEAR} ranking when it lands
+        </h2>
+        <p className="mt-2 mb-4 text-sm text-[var(--color-muted-foreground)]">
+          One email when the ranking is published or materially shifts. No
+          newsletter, no drip — the share card is the product, not an audience
+          funnel.
+        </p>
+        <EmailCapture source={`report-${REPORT_YEAR}`} />
+      </section>
 
       <section
         aria-labelledby="methodology-heading"
