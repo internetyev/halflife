@@ -1,6 +1,6 @@
 # Launch Checklist — halflife
 
-_Last updated: 2026-05-15 (L2.10). Human sign-off gate before the first production deploy._
+_Last updated: 2026-05-18 (L5.8 — added the `/api/health` env-wiring checks to §2 and §5). Human sign-off gate before the first production deploy._
 
 The autonomous routine is forbidden from buying domains, deploying, or committing real API keys (see `ROUTINE.md` hard constraints). This document is the human pre-flight: everything that has to be checked off **by a person** before the first `vercel --prod` push lands.
 
@@ -25,6 +25,7 @@ Treat it as a hard gate. Do not deploy until every required box below is ticked.
 - [ ] `NEXT_PUBLIC_SITE_URL` set to the final canonical origin (e.g. `https://roleclock.ai`) in Production. Preview can stay default.
 - [ ] `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` set to the registered Plausible site (matches the final domain). Plausible site created under the human's account; goals for `form-submit` and `share-click` stubbed (we do not fire these events yet — L2.9 ships the page-view tag only — but registering the goals now means dashboards exist when L2.10+ wiring lands).
 - [ ] Preview environment uses a **separate** Anthropic key with a low monthly cap, so a misconfigured preview can't drain the production budget.
+- [ ] After setting the env vars above (and again post-deploy in §5), `curl https://<domain>/api/health` and confirm `config` shows `anthropic: true`, `kv: true`, `siteUrl` = the final canonical origin (and `plausible`/`plunk` true if those are wired). This is the zero-cost env-wiring check — it never submits a paid Claude call and never echoes a secret value (presence booleans only).
 
 ## 3. Pre-deploy — local smoke (blocks deploy)
 
@@ -56,6 +57,7 @@ Run from a clean checkout on the laptop that will own the deploy. The routine ca
 
 - [ ] Tag the pre-deploy commit: `git tag v0.1.0-prelaunch && git push origin v0.1.0-prelaunch`.
 - [ ] `vercel --prod` from the linked working tree. Watch the build log for missing env vars — Vercel will warn but not fail on missing optional vars (KV, Plausible).
+- [ ] `curl https://<domain>/api/health` **before** the first paid request: `status: "ok"`, `config.anthropic` and `config.kv` both `true`, `config.siteUrl` = the production origin. If any is wrong, fix the Vercel env var and redeploy — do **not** spend a Claude call against a misconfigured deploy.
 - [ ] First production request: submit one title manually. Confirm `x-halflife-cache: MISS` on first call, `HIT` on second.
 - [ ] Check Vercel KV usage in the dashboard: a single round trip should not blow past free-tier limits. If it does, regress before announcing the URL.
 - [ ] Check the Anthropic console: the production key shows 1–2 calls. If it shows more, the cache key is wrong — block launch and investigate.
