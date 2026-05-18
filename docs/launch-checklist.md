@@ -1,6 +1,6 @@
 # Launch Checklist — halflife
 
-_Last updated: 2026-05-18 (L5.8 — added the `/api/health` env-wiring checks to §2 and §5). Human sign-off gate before the first production deploy._
+_Last updated: 2026-05-18 (L5.9 — added §3 smoke checks for the branded 404 and the `app/error.tsx` error boundary; L5.8 — added the `/api/health` env-wiring checks to §2 and §5). Human sign-off gate before the first production deploy._
 
 The autonomous routine is forbidden from buying domains, deploying, or committing real API keys (see `ROUTINE.md` hard constraints). This document is the human pre-flight: everything that has to be checked off **by a person** before the first `vercel --prod` push lands.
 
@@ -44,6 +44,8 @@ Run from a clean checkout on the laptop that will own the deploy. The routine ca
   - [ ] Visit `/api/og/<slug>` for a cached slug → 1200×630 PNG with the band-coloured layout. For an unknown slug → generic "score your role" fallback (not a 404).
   - [ ] Share buttons: LinkedIn opens a popup pointed at `share-offsite?url=<origin>/role/<slug>`; X opens `intent/tweet`; copy-link writes the canonical role URL to clipboard.
   - [ ] DevTools → Network: Plausible script loads only when `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is set in `.env.local`; unset → no request to `plausible.io`.
+  - [ ] Visit a garbage path (e.g. `/nope`) or an unseeded `/role/<slug>` → the branded **404** (`app/not-found.tsx`, L5.6) with the "Analyze a role" CTA, HTTP status 404 (Network tab) — not Next's default UI, not a soft-200.
+  - [ ] Force a render throw (temporarily `throw` in a page, or run the analyzer with `ANTHROPIC_API_KEY` unset so `/api/analyze` 503s and the form surfaces it) → the branded **error boundary** (`app/error.tsx`, L5.9): "Try again" calls `reset()` and recovers in place once the cause clears; "Back to the analyzer" links home. Default Next error UI must not appear.
 
 ## 4. Pre-deploy — content & legal
 
