@@ -65,6 +65,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   };
 
+  // The privacy notice (L5.13). Static text page (`app/privacy/page.tsx`),
+  // always 200, indexable — listing it is the "make findable" half of the
+  // launch-checklist §4 gate that wants a privacy note at `/privacy`.
+  const privacy: MetadataRoute.Sitemap[number] = {
+    url: `${SITE_URL}/privacy`,
+    lastModified,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  };
+
   const roles: MetadataRoute.Sitemap = (await seededRoleSlugs()).map(
     (slug) => ({
       url: `${SITE_URL}/role/${slug}`,
@@ -74,5 +84,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  return [home, report, ...roles];
+  return [home, report, privacy, ...roles];
 }

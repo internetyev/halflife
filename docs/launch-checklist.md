@@ -1,6 +1,6 @@
 # Launch Checklist — halflife
 
-_Last updated: 2026-05-18 (L5.9 — added §3 smoke checks for the branded 404 and the `app/error.tsx` error boundary; L5.8 — added the `/api/health` env-wiring checks to §2 and §5). Human sign-off gate before the first production deploy._
+_Last updated: 2026-05-23 (L5.13 — ticked the §4 "Privacy note at `/privacy`" gate now that `app/privacy/page.tsx` is shipped and listed in `app/sitemap.ts`; footer-link half deferred to a future leaf. L5.9 — added §3 smoke checks for the branded 404 and the `app/error.tsx` error boundary; L5.8 — added the `/api/health` env-wiring checks to §2 and §5). Human sign-off gate before the first production deploy._
 
 The autonomous routine is forbidden from buying domains, deploying, or committing real API keys (see `ROUTINE.md` hard constraints). This document is the human pre-flight: everything that has to be checked off **by a person** before the first `vercel --prod` push lands.
 
@@ -51,7 +51,7 @@ Run from a clean checkout on the laptop that will own the deploy. The routine ca
 
 - [ ] Disclaimer visible on the result card or the home page: "This is a forecast, not a verdict. We do not endorse career decisions made solely from this score." (PLAN.md risks table.)
 - [ ] Methodology link in footer points at `/docs/methodology` or the rendered equivalent — a user who wants to argue with the number must be able to read the rubric.
-- [ ] Privacy note in footer or `/privacy`: Plausible is cookieless, no PII collected, role inputs are cached for 30 days keyed by slug. No GDPR cookie banner required (D-012, PLAN.md).
+- [x] Privacy note at `/privacy` (`app/privacy/page.tsx`, L5.13): Plausible is cookieless, no PII collected, role inputs are cached for 30 days keyed by slug. No GDPR cookie banner required (D-012, PLAN.md). The page lists Anthropic / Vercel KV / Plausible / Plunk as the only sub-processors and a `privacy@<domain>` contact alias the human owns (the host literal `halflife.work` will swap with the L1.7b/L5.1 pick in one edit). `/privacy` is in the sitemap, indexable. **Footer link gap**: there is no shared footer on `app/layout.tsx`, so the page is currently discoverable via the sitemap, the OS share/print menu, and direct link. A future leaf can add a footer (`components/result-card.tsx` methodology footer is the natural home) and ticking the inline-footer-link half of this gate; not required to deploy.
 - [ ] `robots.txt` allows indexing of `/` and `/role/[slug]` but disallows `/api/`. Add to `app/robots.ts` before deploy.
 - [ ] `sitemap.xml` plan: leave to L3.3, but confirm `/api/og/[slug]` is **not** in the sitemap (crawlers fetching it would burn KV reads for no SEO win).
 
