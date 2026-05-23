@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PlausibleAnalytics } from "@/components/plausible-analytics";
+import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
 const TITLE = "halflife — AI Job Obsolescence Clock";
@@ -42,7 +43,10 @@ export default function RootLayout({
       <head>
         <PlausibleAnalytics />
       </head>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="flex min-h-screen flex-col antialiased">
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }
