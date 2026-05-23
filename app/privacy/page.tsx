@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   title: "Privacy",
   description:
     "What halflife collects, what we don't, and where data goes — Plausible (cookieless), Vercel KV (30-day role cache), Anthropic (role analysis), Plunk (opt-in email).",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function Privacy() {

@@ -75,6 +75,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const data = await loadRole(slug);
 
+  // Canonical slug: visitors may hit `/role/Paralegal` or `/role/PARA-LEGAL`,
+  // but the only form `loadRole` resolves data for — and the only form
+  // the sitemap (L3.3), `/api/og/[slug]` (L2.6), and share-button URLs
+  // (L2.8) emit — is the lowercased slug. When data is loaded we re-slugify
+  // from the model's `normalized_title` (matching the in-page logic below);
+  // when it's not, we still strip casing/non-slug chars from the raw param
+  // so `<link rel="canonical">` never points back at the alias URL.
+  const canonicalSlug = data
+    ? slugify(data.result.normalized_title).slice(0, 200)
+    : slugify(slug).slice(0, 200);
+
   const displayTitle = data
     ? data.result.normalized_title.replace(/\b\w/g, (c) => c.toUpperCase())
     : titleCaseFromSlug(slug);
@@ -88,6 +99,7 @@ export async function generateMetadata({
   return {
     title: `${displayTitle} — AI obsolescence countdown`,
     description,
+    alternates: { canonical: `/role/${canonicalSlug}` },
     openGraph: {
       title: `${displayTitle} · halflife`,
       description,
