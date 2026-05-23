@@ -92,6 +92,7 @@ const FALLBACK_STYLE = {
 export const metadata: Metadata = {
   title: `${REPORT_TITLE} — AI obsolescence ranking`,
   description: REPORT_BLURB,
+  alternates: { canonical: `/report/${REPORT_YEAR}` },
   openGraph: {
     title: `${REPORT_TITLE} · halflife`,
     description: REPORT_BLURB,

@@ -31,6 +31,12 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   metadataBase: new URL("https://halflife.work"),
   robots: { index: true, follow: true },
+  // Canonical for the home page (L5.18). `app/page.tsx` is a Client
+  // Component (D-042) and cannot export its own `metadata`, so the
+  // home-route canonical lives here. The layout-level default
+  // (`alternates.canonical = "/"`) is overridden per-route on every
+  // child page that ships its own `metadata.alternates`.
+  alternates: { canonical: "/" },
   // Base share metadata for the home page (a Client Component that can't export
   // its own `metadata`) and the default for any route that doesn't override it.
   // The `og:image`/`twitter:image` come from the file conventions
