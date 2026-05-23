@@ -149,3 +149,50 @@ export function serializeRoleJsonLd(
     "\\u003c",
   );
 }
+
+// Site-level brand-entity graph (L5.16): one `Organization` + one
+// `WebSite` node injected from `app/layout.tsx`, so every route — the
+// home analyzer, `/report/2026`, `/privacy`, `/not-found` — carries the
+// halflife brand entity that today only role pages emit. The
+// Organization `@id` is identical to the one `buildRoleJsonLd` uses
+// (`${SITE_URL}/#organization`), so role pages still ship the richer
+// Article + FAQPage graph and Google merges the duplicated
+// Organization node by `@id` rather than treating it as two separate
+// entities. Pure brand-entity nodes only — no `potentialAction` /
+// `SearchAction`, because the home form analyzes a single role and is
+// not a site search; advertising a SearchAction Google can't actually
+// invoke would mis-shape the rich result. Same `SITE_URL` resolution
+// (`NEXT_PUBLIC_SITE_URL` ?? halflife.work, trailing-slash-stripped) as
+// `buildRoleJsonLd`/`app/sitemap.ts`/`app/robots.ts` so the final
+// domain (L1.7b/L5.1) flows in with zero code edit.
+export function buildSiteJsonLd(): Record<string, unknown> {
+  const orgId = `${SITE_URL}/#organization`;
+  const websiteId = `${SITE_URL}/#website`;
+
+  const organization = {
+    "@type": "Organization",
+    "@id": orgId,
+    name: "halflife",
+    url: `${SITE_URL}/`,
+  };
+
+  const website = {
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: "halflife",
+    url: `${SITE_URL}/`,
+    description:
+      "How many years until AI replaces your role? Obsolescence countdown, survival score, and a concrete pivot roadmap.",
+    publisher: { "@id": orgId },
+    inLanguage: "en",
+  };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [organization, website],
+  };
+}
+
+export function serializeSiteJsonLd(): string {
+  return JSON.stringify(buildSiteJsonLd()).replace(/</g, "\\u003c");
+}

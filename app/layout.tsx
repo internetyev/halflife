@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { PlausibleAnalytics } from "@/components/plausible-analytics";
 import { SiteFooter } from "@/components/site-footer";
+import { serializeSiteJsonLd } from "@/lib/seo/json-ld";
 import "./globals.css";
 
 const TITLE = "halflife — AI Job Obsolescence Clock";
@@ -57,6 +58,14 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <PlausibleAnalytics />
+        {/* Site-level brand-entity JSON-LD (L5.16). Every route inherits
+            this Organization + WebSite graph from the root layout; role
+            pages add their own richer Article + FAQPage graph on top
+            (Google merges the Organization node by `@id`). */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeSiteJsonLd() }}
+        />
       </head>
       <body className="flex min-h-screen flex-col antialiased">
         <div className="flex-1">{children}</div>
