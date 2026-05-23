@@ -1,0 +1,13 @@
+# halflife — security disclosure (RFC 9116)
+#
+# Report a vulnerability or security concern via the Contact URL below.
+# GitHub Security Advisories is the on-record channel: private until
+# coordinated disclosure, audited, and not dependent on a single mailbox.
+#
+# This file lives at /.well-known/security.txt per RFC 9116:
+#   https://www.rfc-editor.org/rfc/rfc9116
+
+Contact: https://github.com/internetyev/halflife/security/advisories/new
+Expires: 2027-05-22T23:59:59Z
+Preferred-Languages: en
+Canonical: https://halflife.work/.well-known/security.txt
