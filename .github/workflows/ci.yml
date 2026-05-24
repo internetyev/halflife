@@ -1,0 +1,60 @@
+# Continuous integration — runs the type, lint, build, and seed-validator
+# checks the routine cannot run locally (no `npm install` per ROUTINE.md).
+#
+# Runs on every `pull_request` (including the routine's `claude/*` branches)
+# and on every push to `main`. Result is informational: there is no branch
+# protection / required-status configuration today, and the sibling
+# `auto-merge-claude.yml` workflow squash-merges `claude/*` PRs the instant
+# they open, so this workflow does not gate auto-merge. Its job is to surface
+# regressions on `main` — and on any PR that does sit open for human review —
+# so a future broken commit shows a red X in the PR history instead of being
+# silently merged and only failing at deploy time.
+#
+# The seed-validator step (`node scripts/validate-roles.mjs`) is the
+# specifically-noted day-one CI hook the L5.20 entry called out: the validator
+# is self-maintaining and stays green through the pre-L3.2b period (empty
+# data/roles/ exits 0), then begins catching malformed seed JSON the moment
+# the human-gated seed pass commits files. Wiring it in CI from day one is
+# what the L5.20 design contemplated.
+#
+# `npm install` (not `npm ci`) is used deliberately — there is no committed
+# package-lock.json (see .gitignore note: "installs are a human step ... the
+# routine may eventually generate lockfiles and the human commits them by
+# hand"). The routine's no-`npm install` rule applies to the local routine,
+# not to GitHub-hosted CI runners. Once a lockfile is committed this should
+# flip to `npm ci` and enable Node setup-action caching.
+#
+# Node 22 (current LTS) satisfies the `engines.node >=20` in package.json
+# and is what Vercel's production runtime uses for Next.js 15.
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: install dependencies
+        run: npm install --no-fund --no-audit
+      - name: typecheck
+        run: npm run typecheck
+      - name: lint
+        run: npm run lint
+      - name: build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://halflife.work
+      - name: validate seed JSON
+        run: node scripts/validate-roles.mjs
