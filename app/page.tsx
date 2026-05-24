@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 
 import { ResultCard } from "@/components/result-card";
 import { ShareButtons } from "@/components/share-buttons";
+import { trackEvent } from "@/lib/analytics/plausible";
 import { slugify } from "@/lib/scoring";
 import type { RoleAnalysisResult } from "@/lib/scoring/types";
 
@@ -68,6 +69,13 @@ export default function HomePage() {
       result: payload as RoleAnalysisResult,
       cache,
     });
+    // L5.25 — fires the `form-submit` goal docs/launch-checklist.md §2 stubs.
+    // Fired *only* on a successful 200 (after the early returns above), so the
+    // dashboard counts completed analyses, not abandoned/errored submits;
+    // `cache` lets the dashboard distinguish a paid Claude call from a free
+    // KV-cached one, which is the single most useful split for the p50
+    // cost-per-result KPI in PLAN.md (§ Phase-1 success metric).
+    trackEvent("form-submit", { cache });
   }
 
   return (
