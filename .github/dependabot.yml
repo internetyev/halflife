@@ -1,0 +1,62 @@
+# Dependabot — proactively surfaces dependency updates as PRs that the
+# sibling `ci.yml` workflow then gates with typecheck/lint/build/validator.
+#
+# Dependabot PRs land on `dependabot/*` branches, NOT `claude/*`, so the
+# `auto-merge-claude.yml` workflow does NOT pick them up — they correctly
+# wait for human review (a dependency bump that touches Next/React/Anthropic
+# SDK is a real-world decision the routine must not auto-squash).
+#
+# Two ecosystems:
+#   - npm: tracks the runtime + dev deps in `package.json`. No committed
+#     `package-lock.json` today (see .gitignore note: "installs are a human
+#     step"), so `versioning-strategy: increase` updates the manifest
+#     ranges directly — Dependabot supports this lockfile-less mode.
+#   - github-actions: tracks the pinned `actions/checkout@v4` +
+#     `actions/setup-node@v4` in `.github/workflows/ci.yml` and the `gh`
+#     action use in `.github/workflows/auto-merge-claude.yml`, so a v5
+#     bump arrives as a PR instead of silent drift.
+#
+# Weekly Monday 08:00 UTC batches the noise into one predictable review
+# window (morning in CET / EU work hours, where the human reviews).
+# Minor + patch updates grouped into single PRs to keep the queue short;
+# major updates ship separately because they warrant individual attention.
+#
+# Open-PR limits cap each ecosystem at 5 to avoid a thundering herd if a
+# transitive ecosystem release cascades.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    versioning-strategy: "increase"
+    groups:
+      npm-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    groups:
+      actions-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    commit-message:
+      prefix: "deps(actions)"
+      include: "scope"
