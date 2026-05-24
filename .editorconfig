@@ -1,0 +1,28 @@
+# EditorConfig — https://editorconfig.org
+# Keeps editors (and the routine) consistent on whitespace + encoding
+# without depending on a per-editor extension or a project-wide formatter.
+# Mirrors what eslint-config-next already enforces inside TS/JS and the
+# de-facto style of every committed file in the repo today.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Python (scripts/rank-job-titles.py) follows PEP 8: 4-space indent.
+[*.py]
+indent_size = 4
+
+# Makefile rules require literal tabs.
+[Makefile]
+indent_style = tab
+
+# Markdown allows two trailing spaces to encode a hard line break;
+# stripping them silently mangles prose. Disable the trim for *.md only.
+[*.md]
+trim_trailing_whitespace = false
