@@ -14,6 +14,8 @@
 
 import { useState } from "react";
 
+import { trackEvent } from "@/lib/analytics/plausible";
+
 interface ShareButtonsProps {
   slug: string;
   title: string;
@@ -50,6 +52,16 @@ const BUTTON_CLASS =
 export function ShareButtons(props: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
 
+  // L5.25 — fires the `share-click` goal docs/launch-checklist.md §2 stubs.
+  // The `channel` prop is the single most useful split: it answers "which
+  // primitive is actually shared?" — the answer drives the LinkedIn-first
+  // ordering this component already encodes (PLAN.md "the share primitive is
+  // the distribution"). `slug` is included so the dashboard can read the long
+  // tail of which roles get shared, parallel to /role/<slug> pageview rows.
+  // `onCopy` reports only on a successful clipboard write — a failed copy on
+  // an insecure context is a no-show, identical to the LinkedIn/X popups
+  // (which can't be blocker-detected) only firing once the share dialog opens.
+
   function onLinkedIn() {
     const url = buildShareUrl(props.slug);
     openShare(
@@ -57,6 +69,7 @@ export function ShareButtons(props: ShareButtonsProps) {
         url,
       )}`,
     );
+    trackEvent("share-click", { channel: "linkedin", slug: props.slug });
   }
 
   function onTwitter() {
@@ -67,6 +80,7 @@ export function ShareButtons(props: ShareButtonsProps) {
         text,
       )}&url=${encodeURIComponent(url)}`,
     );
+    trackEvent("share-click", { channel: "x", slug: props.slug });
   }
 
   async function onCopy() {
@@ -81,6 +95,7 @@ export function ShareButtons(props: ShareButtonsProps) {
     }
     setCopied(true);
     window.setTimeout(() => setCopied(false), 2000);
+    trackEvent("share-click", { channel: "copy", slug: props.slug });
   }
 
   return (
