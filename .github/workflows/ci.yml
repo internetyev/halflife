@@ -24,8 +24,11 @@
 # not to GitHub-hosted CI runners. Once a lockfile is committed this should
 # flip to `npm ci` and enable Node setup-action caching.
 #
-# Node 22 (current LTS) satisfies the `engines.node >=20` in package.json
-# and is what Vercel's production runtime uses for Next.js 15.
+# Node version is read from the repo-root `.nvmrc` (L5.27) so this workflow,
+# a contributor's `nvm use` / `fnm use`, and the routine laptop all resolve to
+# the same line — single source of truth, no separate edit when Node 22 → 24.
+# `.nvmrc` pins 22 (current LTS) which satisfies `engines.node >=20` in
+# package.json and matches Vercel's production runtime for Next.js 15.
 
 name: ci
 
@@ -45,7 +48,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version-file: ".nvmrc"
       - name: install dependencies
         run: npm install --no-fund --no-audit
       - name: typecheck
