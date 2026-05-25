@@ -1,0 +1,54 @@
+# Default: every text file checks out with LF on every OS, even when a
+# Windows contributor has `core.autocrlf=true` configured globally.
+# Pairs with .editorconfig (L5.24): editorconfig enforces LF inside the
+# editor; .gitattributes enforces LF at the git-checkout/commit layer.
+* text=auto eol=lf
+
+# Source + config — explicit LF to make the intent obvious in `git check-attr`.
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.js        text eol=lf
+*.mjs       text eol=lf
+*.cjs       text eol=lf
+*.jsx       text eol=lf
+*.json      text eol=lf
+*.md        text eol=lf
+*.mdx       text eol=lf
+*.css       text eol=lf
+*.html      text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.toml      text eol=lf
+*.py        text eol=lf
+*.sh        text eol=lf
+*.txt       text eol=lf
+*.svg       text eol=lf
+.editorconfig text eol=lf
+.env.example  text eol=lf
+.gitignore    text eol=lf
+.gitattributes text eol=lf
+.nvmrc        text eol=lf
+
+# Binary — never normalise, never diff as text.
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.ico       binary
+*.pdf       binary
+*.woff      binary
+*.woff2     binary
+*.ttf       binary
+*.otf       binary
+*.eot       binary
+*.zip       binary
+*.gz        binary
+*.tgz       binary
+
+# GitHub linguist hints — keep generated/vendored artifacts out of language
+# stats and PR diff defaults so the repo's main-language reading on GitHub
+# reflects authored code, not data dumps.
+data/**         linguist-generated=true
+data/**/*.json  linguist-generated=true
+data/**/*.csv   linguist-generated=true
