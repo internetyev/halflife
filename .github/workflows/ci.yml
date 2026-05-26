@@ -59,7 +59,5 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://halflife.work
-      - name: validate seed JSON
-        run: node scripts/validate-roles.mjs
-      - name: validate report JSON
-        run: node scripts/validate-report.mjs
+      - name: validate seed + report JSON
+        run: npm run validate

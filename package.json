@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "validate": "node scripts/validate-roles.mjs && node scripts/validate-report.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",
