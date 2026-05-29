@@ -28,6 +28,7 @@
 .gitignore    text eol=lf
 .gitattributes text eol=lf
 .nvmrc        text eol=lf
+.npmrc        text eol=lf
 
 # Binary — never normalise, never diff as text.
 *.png       binary
