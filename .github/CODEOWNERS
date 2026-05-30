@@ -1,0 +1,29 @@
+# CODEOWNERS — GitHub auto-requests review from the listed owners on every
+# pull request that touches a matching path. The L5.30 PR template (D-060)
+# gave a *human*-opened PR a structured body to fill in; this file gives
+# that same PR an assigned reviewer the moment it opens, with no manual
+# "Reviewers" picker step. Two specific PR-producers are unaffected:
+#
+#   - `claude/*` routine PRs (auto-merged by `.github/workflows/auto-merge-claude.yml`
+#     the instant they open — squash-merge fires before any review request
+#     can complete, so the assignment lands harmlessly on an already-merged PR).
+#   - `dependabot/*` PRs (also unaffected by the L5.22/D-052 review posture
+#     that deliberately routes dep bumps through a human; CODEOWNERS just
+#     makes that human review request automatic instead of GitHub leaving
+#     "Reviewers" empty for the human to populate themselves).
+#
+# The catch-all `* @internetyev` is the right rule for a single-author
+# repo: every path the routine, Dependabot, or a future external contributor
+# might touch already routes to the one human who can sign off on it.
+# Adding per-path rules later (e.g. `docs/ @some-reviewer` for a press-desk
+# co-owner) is an additive change that does not require revisiting this line.
+#
+# Location: `.github/CODEOWNERS` is one of three valid paths GitHub looks
+# at (the others are repo-root `CODEOWNERS` and `docs/CODEOWNERS`); placing
+# it under `.github/` keeps repo-tooling config colocated with the existing
+# PR template, dependabot config, and workflows — same scope call as
+# the L5.30 PR template's `.github/PULL_REQUEST_TEMPLATE.md` location.
+#
+# Format reference: https://docs.github.com/en/repositories/managing-your-repositories-settings-and-features/customizing-your-repository/about-code-owners
+
+* @internetyev
