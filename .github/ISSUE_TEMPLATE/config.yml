@@ -1,0 +1,55 @@
+# Issue template chooser config — controls the picker GitHub shows when a
+# user clicks "New issue" on the repository. The issue-side companion to
+# L5.30/D-060's `.github/PULL_REQUEST_TEMPLATE.md` and L5.34/D-064's
+# `.github/CODEOWNERS`: those gave a *human*-opened PR a structured body
+# and an auto-assigned reviewer; this file routes a would-be issue opener
+# at the picker step, before the issue body exists.
+#
+# Two effects:
+#
+#   1. `blank_issues_enabled: false` removes the "Open a blank issue" link
+#      that GitHub injects by default. Without an issue template in the
+#      tree, the picker only ever shows that blank link — turning it off
+#      forces every issue opener through the contact_links below first, so
+#      the security-disclosure surface (which must NOT become a public
+#      issue) is seen before any submit affordance is. The day a future
+#      leaf adds an actual `bug_report.yml` / `feature_request.yml` form,
+#      this flag stays as-is: the picker shows the named templates plus
+#      the contact_links, and the blank-issue escape hatch stays closed.
+#
+#   2. `contact_links` adds one off-picker entry pointing at the GitHub
+#      Security Advisories flow that SECURITY.md (L5.19/D-049) and
+#      `/.well-known/security.txt` (L5.17/D-047) both already advertise.
+#      GitHub renders contact_links above the (currently empty) template
+#      list, so a reporter who came to "file a security bug" sees the
+#      private-disclosure path before any public-issue path — same
+#      defence-in-depth as SECURITY.md's "Please do not open a public
+#      GitHub issue ... use GitHub Security Advisories" lede.
+#
+# Why a single contact_link (not also Discussions / mailing list / chat):
+# Discussions is not enabled on this repo, the project has no mailing
+# list, and the maintainer's contact-of-record is already the GitHub
+# profile linked from SECURITY.md. One link to the canonical private
+# channel beats several links to surfaces that do not yet exist — same
+# minimal-and-extensible posture as L5.34/D-064's catch-all CODEOWNERS
+# rule and L5.27/D-057's single `.nvmrc` literal. Adding more entries
+# later (e.g. a Discussions URL the day the repo enables it) is a
+# one-line additive edit that does not require revisiting this file.
+#
+# Why `.github/ISSUE_TEMPLATE/config.yml` (the directory, not a single
+# `.github/issue_template.yml`): GitHub's issue-template system reads
+# the `.github/ISSUE_TEMPLATE/` directory; `config.yml` is the
+# well-known control file inside that directory. Creating the directory
+# now keeps the next `bug_report.yml` / `feature_request.yml` follow-up
+# leaf to a pure additive change — no directory rename, no path move,
+# no second `.gitattributes` edit. Same forward-compatibility posture
+# as L5.34/D-064 placing CODEOWNERS at `.github/CODEOWNERS` so the
+# `.github/` config dir stays the one config home.
+#
+# Format reference: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/internetyev/halflife/security/advisories/new
+    about: Security issues must NOT be filed as public issues. Use GitHub Security Advisories (private until coordinated disclosure) — same channel SECURITY.md and /.well-known/security.txt advertise.
