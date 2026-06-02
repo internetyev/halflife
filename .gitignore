@@ -54,3 +54,7 @@ next-env.d.ts
 
 # Routine scratch — logs from launchd-driven runs that should not pollute git
 /.routine-runs/
+
+# Claude Code memory — keep internal memory/notes out of the repo
+/MEMORY.md
+/memory/
