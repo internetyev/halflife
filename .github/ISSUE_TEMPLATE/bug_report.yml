@@ -1,0 +1,60 @@
+name: Bug report
+description: Report a problem with the halflife app or a role analysis result
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug.
+
+        **Security vulnerabilities must NOT be filed here.** Use GitHub Security
+        Advisories instead (the link on the "New issue" picker, also in
+        SECURITY.md and /.well-known/security.txt) — that channel is private
+        until coordinated disclosure.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected to happen instead.
+      placeholder: When I analyzed the role "Paralegal", the score gauge showed ...
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Affected URL or role
+      description: The page URL (e.g. /role/paralegal, /report/2026) or the job title you entered.
+      placeholder: /role/paralegal
+    validations:
+      required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: How can a maintainer see the same thing?
+      placeholder: |
+        1. Go to '...'
+        2. Enter the role '...'
+        3. See error / wrong result
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the site?
+      options:
+        - Role analysis result (score / countdown / tools / pivot steps)
+        - Annual report page (/report/2026)
+        - Share buttons or social/OG preview image
+        - Email capture form
+        - Other or not sure
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Browser and device
+      placeholder: e.g. Chrome 120 on macOS, or Safari on an iPhone
+    validations:
+      required: false
