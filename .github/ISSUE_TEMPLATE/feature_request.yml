@@ -1,0 +1,55 @@
+name: Feature request
+description: Suggest an improvement or new capability for the halflife app
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement.
+
+        **Security vulnerabilities must NOT be filed here.** Use GitHub Security
+        Advisories instead (the link on the "New issue" picker, also in
+        SECURITY.md and /.well-known/security.txt) — that channel is private
+        until coordinated disclosure.
+
+        Note: this is a deliberately small project with a fixed scope (see the
+        "Out-of-scope parking lot" in ROADMAP.md — mobile app, accounts, paid
+        tier, localisation are out of scope). Requests outside that scope are
+        welcome as discussion but may be declined.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the gap or frustration first — the underlying need, not just the feature.
+      placeholder: When I analyze a role I can't compare it against another role side by side, so ...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like to see happen? A rough sketch is fine.
+      placeholder: A "compare two roles" view that ...
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the site?
+      options:
+        - Role analysis result (score / countdown / tools / pivot steps)
+        - Annual report page (/report/2026)
+        - Share buttons or social/OG preview image
+        - Email capture form
+        - Methodology / accuracy of the analysis
+        - Other or not sure
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or workarounds
+      description: Anything you've tried, or other ways this could be addressed.
+    validations:
+      required: false
