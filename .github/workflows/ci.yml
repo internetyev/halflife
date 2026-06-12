@@ -61,3 +61,5 @@ jobs:
           NEXT_PUBLIC_SITE_URL: https://halflife.work
       - name: validate seed + report JSON
         run: npm run validate
+      - name: test
+        run: npm test

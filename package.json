@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "validate": "node scripts/validate-roles.mjs && node scripts/validate-report.mjs && node scripts/validate-job-titles.mjs"
+    "validate": "node scripts/validate-roles.mjs && node scripts/validate-report.mjs && node scripts/validate-job-titles.mjs",
+    "test": "node --test \"scripts/__tests__/*.test.mjs\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",
