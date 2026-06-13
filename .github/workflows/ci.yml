@@ -63,3 +63,8 @@ jobs:
         run: npm run validate
       - name: test
         run: npm test
+      - name: python tests
+        # ubuntu-latest ships python3 by default, and the suite is pure stdlib
+        # (unittest/subprocess/tempfile), so no actions/setup-python and no pip
+        # install is needed — same no-install posture as the node test step.
+        run: python3 -m unittest discover -s scripts/__tests__ -p 'test_*.py'

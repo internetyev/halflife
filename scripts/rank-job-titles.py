@@ -92,11 +92,11 @@ def _num(v) -> float:
         return 0.0
 
 
-def load_candidates() -> list[str]:
-    if not CANDIDATES.exists():
-        sys.exit(f"missing corpus: {CANDIDATES} (L3.1a ships this)")
+def load_candidates(path: Path = CANDIDATES) -> list[str]:
+    if not path.exists():
+        sys.exit(f"missing corpus: {path} (L3.1a ships this)")
     seen, out = set(), []
-    for line in CANDIDATES.read_text(encoding="utf-8").splitlines():
+    for line in path.read_text(encoding="utf-8").splitlines():
         t = line.strip().lower()
         if t and t not in seen:
             seen.add(t)
@@ -112,9 +112,20 @@ def main() -> int:
         "Omit to emit the curated-interim ordering (volume unknown).",
     )
     ap.add_argument("--top", type=int, default=200)
+    ap.add_argument(
+        "--candidates",
+        help="Path to the candidate corpus (one title per line). "
+        f"Default: {CANDIDATES} (L3.1a ships this). Override for tests.",
+    )
+    ap.add_argument(
+        "--out-dir",
+        help="Directory to write top-{N}.json / .csv into. "
+        "Default: data/job-titles/. Override for tests.",
+    )
     args = ap.parse_args()
 
-    candidates = load_candidates()
+    candidates_path = Path(args.candidates) if args.candidates else CANDIDATES
+    candidates = load_candidates(candidates_path)
 
     vol_by_kw: dict[str, dict] = {}
     volume_source = "curated-interim"
@@ -152,7 +163,8 @@ def main() -> int:
     for i, e in enumerate(top, 1):
         e["rank"] = i
 
-    out_dir = REPO / "data" / "job-titles"
+    out_dir = Path(args.out_dir) if args.out_dir else REPO / "data" / "job-titles"
+    out_dir.mkdir(parents=True, exist_ok=True)
     meta = {
         "generated": _dt.date.today().isoformat(),
         "candidate_count": len(candidates),

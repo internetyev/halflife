@@ -27,6 +27,12 @@ yarn-error.log*
 /coverage
 *.lcov
 
+# Python — bytecode caches from the stdlib unittest suites (scripts/__tests__).
+# Installs stay a human step (see ROUTINE.md); no .venv/ is committed either.
+__pycache__/
+*.py[cod]
+.venv/
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
