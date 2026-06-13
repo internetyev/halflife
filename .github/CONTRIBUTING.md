@@ -82,6 +82,12 @@ constraints:
 - **Editor conventions:** [`.editorconfig`](../.editorconfig) and
   [`.gitattributes`](../.gitattributes) pin indentation and LF line endings.
   Most editors apply these automatically.
+- **Common commands** are wrapped in the repo-root [`Makefile`](../Makefile):
+  `make help` lists every target; `make ci` runs the full pre-merge sequence
+  (typecheck → lint → build → validate → test → test-py) locally, mirroring
+  [`.github/workflows/ci.yml`](workflows/ci.yml). The targets are thin wrappers
+  over the `package.json` scripts — use either; `make` is just the shorter
+  entry point.
 
 ## License
 
