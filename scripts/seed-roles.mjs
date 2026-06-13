@@ -33,6 +33,15 @@
 //   --limit N         only process the first N roles (smoke test)
 //   --force           re-fetch + overwrite slugs that already have a file
 //   --dry-run         list what would be fetched/skipped; make no requests
+//   --corpus PATH     corpus JSON to read (default data/job-titles/top-200.json)
+//   --out-dir PATH    where seed files are written (default data/roles)
+//
+// --corpus / --out-dir default to the repo paths the human-run seed pass uses,
+// so a plain `node scripts/seed-roles.mjs` is unchanged; they exist so the
+// test suite (scripts/__tests__/seed-roles.test.mjs) can point the driver at a
+// temp fixture and never touch the real data/ tree — the same testability
+// posture validate-*.mjs (--roles/--report/--file) and rank-at-risk.mjs
+// (--roles/--out-dir) already have.
 //
 // Idempotent: a slug whose data/roles/<slug>.json already exists is skipped
 // (no POST → no Claude call) unless --force. Safe to Ctrl-C and re-run; it
@@ -54,6 +63,8 @@ function parseArgs(argv) {
     limit: Infinity,
     force: false,
     dryRun: false,
+    corpus: CORPUS,
+    outDir: OUT_DIR,
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -62,6 +73,8 @@ function parseArgs(argv) {
     else if (a === "--limit") args.limit = Number(argv[++i]);
     else if (a === "--force") args.force = true;
     else if (a === "--dry-run") args.dryRun = true;
+    else if (a === "--corpus") args.corpus = argv[++i];
+    else if (a === "--out-dir") args.outDir = argv[++i];
     else {
       console.error(`Unknown argument: ${a}`);
       process.exit(2);
@@ -129,10 +142,10 @@ async function analyzeOne(base, title) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
 
-  const corpusRaw = await fs.readFile(CORPUS, "utf8").catch(() => null);
+  const corpusRaw = await fs.readFile(args.corpus, "utf8").catch(() => null);
   if (corpusRaw === null) {
     console.error(
-      `Corpus not found at ${CORPUS}. Run L3.1 (rank-job-titles) first.`,
+      `Corpus not found at ${args.corpus}. Run L3.1 (rank-job-titles) first.`,
     );
     process.exit(1);
   }
@@ -143,14 +156,14 @@ async function main() {
     process.exit(1);
   }
 
-  await fs.mkdir(OUT_DIR, { recursive: true });
+  await fs.mkdir(args.outDir, { recursive: true });
 
   // Partition into to-fetch vs. already-seeded so the plan is visible before
   // a single paid call goes out.
   const todo = [];
   let skipped = 0;
   for (const role of roles) {
-    const outPath = path.join(OUT_DIR, `${role.slug}.json`);
+    const outPath = path.join(args.outDir, `${role.slug}.json`);
     if (!args.force && (await fileExists(outPath))) {
       skipped++;
       continue;
