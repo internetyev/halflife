@@ -71,7 +71,7 @@ The `validate` and `test` targets are zero-dependency (Node + Python stdlib only
 | [`docs/operations.md`](docs/operations.md) | Post-deploy runbook — verify, re-run the pipeline, bust/roll back the cache, rotate keys |
 | [`docs/methodology.md`](docs/methodology.md) | How the obsolescence score is constructed |
 | [`LEDGER.md`](LEDGER.md) | Per-run spend (Claude + corgi) |
-| [`BLOCKED.md`](BLOCKED.md) | Present only when a run hit a blocker the human must resolve |
+| `BLOCKED.md` | Present only when a run hit a blocker the human must resolve (not linked — absent in the normal case) |
 
 ## Contributing
 

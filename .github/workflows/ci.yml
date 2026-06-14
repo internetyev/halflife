@@ -61,6 +61,11 @@ jobs:
           NEXT_PUBLIC_SITE_URL: https://halflife.work
       - name: validate seed + report JSON
         run: npm run validate
+      - name: check doc links
+        # Self-maintaining like the JSON validators: stays green as docs are
+        # added, fails the moment a relative cross-reference points at a moved
+        # or mistyped path (the silent-drift class no typecheck/lint/build sees).
+        run: npm run check:links
       - name: test
         run: npm test
       - name: python tests
