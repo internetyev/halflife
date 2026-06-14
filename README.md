@@ -1,14 +1,16 @@
 # halflife
 
+[![CI](https://github.com/internetyev/halflife/actions/workflows/ci.yml/badge.svg)](https://github.com/internetyev/halflife/actions/workflows/ci.yml)
+
 > A viral web tool that takes a job title and returns an **AI-obsolescence countdown**, a **survival score**, the **AI tools already disrupting the role**, and a **personalised pivot roadmap** — packaged as a shareable card.
 
 The Claude API is the product. There is no proprietary model and no rules engine: the analysis, scoring, and pivot steps are all structured Claude tool-use calls, fronted by aggressive caching. See [`PLAN.md`](PLAN.md) for the full thesis and audience notes.
 
 ## Status
 
-**Planning + foundation.** No app code yet — the manifest (`package.json`), Tailwind v4 + shadcn config, and this scaffolding are landing one leaf at a time. Build order is in [`ROADMAP.md`](ROADMAP.md); each scheduled run picks the next unchecked leaf.
+**Pre-launch.** The application is built: the analyze API + Claude tool-use call, KV cache, input form + result card, OG image route, per-role pages, share buttons, the 2026 at-risk report page, and the full SEO/metadata/error-boundary surface have all landed (Phases 0–4 in [`ROADMAP.md`](ROADMAP.md)). What remains is Phase 5 launch prep — and the leaves still open there are **human-gated**: final naming + domain purchase, the live seed pass (needs a real `ANTHROPIC_API_KEY`), the Vercel deploy, and activating email capture. The routine cannot run those, so it fills burn windows with self-maintaining launch-readiness leaves (CI, validators, tests, metadata routes) instead.
 
-The build is driven by an autonomous Claude Code routine that runs every 4 hours from the maintainer's MacBook (launchd agent, capped at $2 USD per run). Each run lands one leaf as an auto-merged PR. The protocol is in [`ROUTINE.md`](ROUTINE.md).
+The build is driven by an autonomous Claude Code routine that runs at night from the maintainer's MacBook (launchd agent). It runs hot on weekend nights (the "burn" window, capped at $3 of token use per run) and at ~⅓ intensity on weeknights ($1 per run); both caps are Max-subscription-quota proxies, not real cash. Each run lands one leaf as an auto-merged PR. The protocol is in [`ROUTINE.md`](ROUTINE.md).
 
 ## Stack (working assumption)
 
@@ -32,6 +34,30 @@ npm run dev
 
 Required env vars are documented inline in [`.env.example`](.env.example). `ANTHROPIC_API_KEY` is required for any analyze call; the four `KV_*` vars come from a linked Vercel KV store. Local-only runs without KV will fall through to uncached calls — fine for dev, never for prod.
 
+## Development
+
+After the one-time `npm install`, the same checks CI runs are available locally. The repo-root [`Makefile`](Makefile) wraps them in CI order so `make ci` runs exactly what `.github/workflows/ci.yml` runs:
+
+```bash
+make help        # list every target (default)
+make ci          # typecheck → lint → build → validate → test → test-py
+make test        # node:test suites under scripts/__tests__/ (npm test)
+make test-py     # python unittest discovery for scripts/rank-job-titles.py
+```
+
+Or call the underlying tools directly:
+
+```bash
+npm run typecheck   # tsc --noEmit
+npm run lint        # next lint
+npm run build       # next build
+npm run validate    # schema-check committed data/ JSON (roles, report, job-titles)
+npm test            # node --test scripts/__tests__/*.test.mjs
+python3 -m unittest discover -s scripts/__tests__ -p 'test_*.py'
+```
+
+The `validate` and `test` targets are zero-dependency (Node + Python stdlib only) and pass against an empty `data/` tree, so they stay green through the pre-seed period and start catching malformed JSON the moment the seed pass commits files.
+
 ## Document map
 
 | File | Purpose |
@@ -45,7 +71,7 @@ Required env vars are documented inline in [`.env.example`](.env.example). `ANTH
 
 ## Contributing
 
-This repo is currently driven by the routine. PRs from `claude/*` branches squash-merge automatically (see `.github/workflows/auto-merge-claude.yml`). Human-authored PRs are welcome but go through normal review.
+This repo is currently driven by the routine. PRs from `claude/*` branches squash-merge automatically (see `.github/workflows/auto-merge-claude.yml`). Human-authored PRs are welcome but go through normal review — see [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md) for the contributor guide and [`SECURITY.md`](SECURITY.md) for the disclosure policy.
 
 ## License
 
