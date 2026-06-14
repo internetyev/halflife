@@ -70,8 +70,10 @@ When you open one:
 
 ## Local development
 
-Setup lives in the [README](../README.md#local-setup). The key contributor
-constraints:
+Setup lives in the [README](../README.md#local-setup), and
+[`docs/architecture.md`](../docs/architecture.md) maps how the codebase fits
+together (request flow, data pipeline, the recurring patterns) — read it
+before your first change. The key contributor constraints:
 
 - **The routine never runs package installs** — the first human to clone runs
   `npm install` by hand. CI uses `npm install` (not `npm ci`); there is no

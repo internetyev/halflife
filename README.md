@@ -66,6 +66,8 @@ The `validate` and `test` targets are zero-dependency (Node + Python stdlib only
 | [`ROADMAP.md`](ROADMAP.md) | Phased work breakdown, leaf-by-leaf |
 | [`ROUTINE.md`](ROUTINE.md) | Protocol the autonomous routine follows each run |
 | [`DECISIONS.md`](DECISIONS.md) | Append-only ADR-style log |
+| [`docs/architecture.md`](docs/architecture.md) | How the codebase fits together — request flow, data pipeline, recurring patterns |
+| [`docs/methodology.md`](docs/methodology.md) | How the obsolescence score is constructed |
 | [`LEDGER.md`](LEDGER.md) | Per-run spend (Claude + corgi) |
 | [`BLOCKED.md`](BLOCKED.md) | Present only when a run hit a blocker the human must resolve |
 
