@@ -15,7 +15,7 @@ SHELL := bash
 # `make` with no target prints the help table.
 .DEFAULT_GOAL := help
 
-.PHONY: help install dev build start typecheck lint validate test test-py ci clean
+.PHONY: help install dev build start typecheck lint validate links test test-py ci clean
 
 help: ## List the available targets
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -43,6 +43,9 @@ lint: ## Lint with next lint
 validate: ## Validate committed seed + report + job-title JSON
 	npm run validate
 
+links: ## Check relative Markdown links across the repo
+	npm run check:links
+
 test: ## Run the node:test suites
 	npm test
 
@@ -51,7 +54,7 @@ test-py: ## Run the Python unittest suites
 
 # Mirrors the job in .github/workflows/ci.yml (minus the install step, which the
 # runner does separately). Keep this list in sync with that workflow's order.
-ci: typecheck lint build validate test test-py ## Run the full CI sequence locally
+ci: typecheck lint build validate links test test-py ## Run the full CI sequence locally
 
 clean: ## Remove build output and Python bytecode caches
 	rm -rf .next
