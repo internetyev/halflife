@@ -10,7 +10,11 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 const config = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    ignores: [".next/**", "node_modules/**"],
+    // Node test harnesses, not shipped Next app/runtime code. The scripts/
+    // suites already sit outside next-lint's default dirs (app/lib/components/
+    // src), so the lib/ test files are excluded here to keep test code
+    // consistently outside the app lint regardless of where it is colocated.
+    ignores: [".next/**", "node_modules/**", "**/__tests__/**"],
   },
 ];
 
