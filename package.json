@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "validate": "node scripts/validate-roles.mjs && node scripts/validate-report.mjs && node scripts/validate-job-titles.mjs",
     "check:links": "node scripts/check-doc-links.mjs",
-    "test": "node --test \"scripts/__tests__/*.test.mjs\" \"lib/**/__tests__/*.test.mjs\""
+    "test": "node --import ./scripts/test-resolver.mjs --test \"scripts/__tests__/*.test.mjs\" \"lib/**/__tests__/*.test.mjs\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",
