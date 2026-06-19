@@ -22,7 +22,9 @@ export const DIMENSION_WEIGHTS: Record<DimensionKey, number> = {
   labor_market_elasticity: 0.1,
 };
 
-const COUNTDOWN_BANDS: ReadonlyArray<{
+// Exported so the L5.56 doc-consistency test can assert this table matches the
+// score-to-countdown band table in docs/methodology.md (the D-009 hand-mirror).
+export const COUNTDOWN_BANDS: ReadonlyArray<{
   scoreMin: number;
   scoreMax: number;
   yearsMin: number;
