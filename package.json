@@ -14,10 +14,10 @@
     "test": "node --import ./scripts/test-resolver.mjs --test \"scripts/__tests__/*.test.mjs\" \"lib/**/__tests__/*.test.mjs\""
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.40.0",
+    "@anthropic-ai/sdk": "^0.105.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@vercel/kv": "^3.0.0",
-    "@vercel/og": "^0.6.5",
+    "@vercel/og": "^0.11.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.470.0",
