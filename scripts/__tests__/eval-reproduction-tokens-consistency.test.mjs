@@ -28,14 +28,12 @@
 // the model string — the `max tokens` figure two words later on the very same
 // line was unguarded. This owns exactly that token-budget hop.
 //
-// NOTE on temperature: the same README line pins `temperature 0`, but the
-// production `messages.create` call sets NO explicit `temperature`, so it relies
-// on the SDK default (1.0) — the eval and production disagree on temperature
-// today. That is a real product decision (make production deterministic at temp 0,
-// or accept the eval/prod gap), not a test-only edit, so it is flagged in
-// DECISIONS D-129 for the human and deliberately NOT asserted here — a hard
-// temperature check would fail the suite on a discrepancy this guard cannot
-// resolve on its own.
+// NOTE on temperature: the same README line also pins `temperature 0`. When this
+// guard shipped, production set no explicit `temperature` and fell back to the SDK
+// default (1.0), so eval and prod disagreed — flagged in D-129 and left unasserted
+// here. L5.100 / D-130 resolved it: production now sends `temperature: TEMPERATURE`
+// (0), and `eval-reproduction-temperature-consistency.test.mjs` owns that hop. This
+// file stays scoped to the token budget.
 //
 // A single 2048 anchor (EXPECTED_MAX_TOKENS) pins the current source of truth so a
 // coordinated roll across both surfaces is still a deliberate, test-visible edit
