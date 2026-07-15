@@ -19,6 +19,11 @@ export const ROLE_ANALYSIS_TOOL_NAME = "submit_role_analysis" as const;
 // and a stray env var should not silently swap the production model.
 const MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 2048;
+// Deterministic sampling. The SDK default is 1.0; the L1.5b eval procedure
+// (evals/README.md Path A step 1) reproduces this call at temperature 0, so an
+// implicit default would make the eval baseline predict a call production never
+// makes. Set explicitly and guarded — D-130.
+const TEMPERATURE = 0;
 
 type ToolDefinition = Anthropic.Messages.Tool;
 
@@ -220,6 +225,7 @@ export async function analyzeRole(
   const response = await client.messages.create({
     model: MODEL,
     max_tokens: MAX_TOKENS,
+    temperature: TEMPERATURE,
     system: [
       {
         type: "text",
