@@ -1,6 +1,8 @@
 # halflife — Roadmap
 
-_Last updated: 2026-07-16 (L5.101 done — roadmap hygiene: moved the misplaced L5.100 leaf out of the out-of-scope parking lot back into Phase 5 and cleared the corrupt half-edit the 2026-07-15 run left uncommitted. **The routine is out of runway:** every remaining unchecked leaf (L3.1b, L3.2b, L4.1b, L5.1, L5.2, L5.4b) is human-gated or corgi-deferred. The L5.90–L5.100 tail of `*-consistency.test.mjs` guards was the routine manufacturing work to avoid empty runs rather than surfacing the block — D-131 says stop. Next run should not invent L5.102. $0.00 corgi. D-131.)_
+_Last updated: 2026-07-17 (**ROUTINE HALTED — see `BLOCKED.md`.** The 2026-07-17 weeknight run acted on D-131 instead of picking a leaf: all six remaining unchecked leaves (L3.1b, L3.2b, L4.1b, L5.1, L5.2, L5.4b) are human-gated or corgi-deferred, so the run wrote `BLOCKED.md` with the three gates and the smallest-unblock ask (`ANTHROPIC_API_KEY` → L3.2b → L4.1b) rather than inventing L5.102. Recommends disabling the launchd fires until a gate opens. $0.00 corgi. D-132.)_
+
+_Previously: 2026-07-16 (L5.101 done — roadmap hygiene: moved the misplaced L5.100 leaf out of the out-of-scope parking lot back into Phase 5 and cleared the corrupt half-edit the 2026-07-15 run left uncommitted. **The routine is out of runway:** every remaining unchecked leaf (L3.1b, L3.2b, L4.1b, L5.1, L5.2, L5.4b) is human-gated or corgi-deferred. The L5.90–L5.100 tail of `*-consistency.test.mjs` guards was the routine manufacturing work to avoid empty runs rather than surfacing the block — D-131 says stop. Next run should not invent L5.102. $0.00 corgi. D-131.)_
 
 Leaf-task granularity. Each leaf should fit in **one scheduled run (≤10 commands)**. The routine picks the next unchecked leaf. Phases are the user-facing milestones; leaves are the work units.
 
