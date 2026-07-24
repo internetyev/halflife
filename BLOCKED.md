@@ -83,3 +83,25 @@ is corgi-project work, tracked in the corgi backlog — out of scope for the hal
 cannot `pip install` or edit that repo as part of a leaf. Until the corgi build ships a live
 `keyword_overview`, L3.1b stays deferred exactly as before; the keystone ask is unchanged
 (**`ANTHROPIC_API_KEY` → L3.2b → L4.1b**). This run wrote no test guard (D-131).
+
+---
+
+## Escalation — 2026-07-24 (burn run, blocked-L3.2b)
+
+A weekend burn fire re-checked the six gates against **live `.env` state** (not a re-read of this
+file): `ANTHROPIC_API_KEY`, `PLUNK_API_KEY`, `KV_REST_API_URL/TOKEN`, `VERCEL_TOKEN` are all still
+empty; only `DATAFORSEO_USERNAME/PASSWORD` are set. **No gate has opened. The block stands, byte-for-
+byte, as on 2026-07-20.** Open-PR queue is dependabot-only — the pipeline is not stuck; there is
+simply nothing to pick.
+
+The one genuinely new fact worth recording: **it is now a full week since the block was raised
+(2026-07-17), and the launchd burn fires are still running** — this run is proof. The
+"disable the two plists until a gate opens" recommendation (D-132, and the top of this file) was
+**not acted on**, so each weekend-night fire keeps spending Max quota to rediscover this same file.
+
+**Ask — one of, in priority order:** (1) **disable the launchd jobs**
+(`com.halflife.routine.burn.plist`, `com.halflife.routine.weeknight.plist`) so the fires stop
+burning quota on a dammed roadmap; and/or (2) hand over **`ANTHROPIC_API_KEY`** — the keystone that
+lets the routine carry L3.2b → L4.1b unattended and turn the shell into a site with content. Nothing
+smaller than one of these changes the outcome of a fire. This run wrote no test guard and invented no
+leaf (D-131).
