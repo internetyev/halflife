@@ -105,3 +105,21 @@ burning quota on a dammed roadmap; and/or (2) hand over **`ANTHROPIC_API_KEY`** 
 lets the routine carry L3.2b → L4.1b unattended and turn the shell into a site with content. Nothing
 smaller than one of these changes the outcome of a fire. This run wrote no test guard and invented no
 leaf (D-131).
+
+---
+
+## Re-confirmation — 2026-07-26 (burn run, blocked-L3.2b)
+
+Weekend burn fire, two days after D-134. Re-checked the six gates against **live `.env`**:
+`ANTHROPIC_API_KEY`, `PLUNK_API_KEY`, `KV_REST_API_URL/TOKEN`, `VERCEL_TOKEN` all still empty; only
+`DATAFORSEO_USERNAME/PASSWORD` set. **No gate has opened. The block stands, byte-for-byte, as on
+2026-07-24.** Open-PR queue is dependabot-only (7 PRs, #63–#67, #116, #151) — no `claude/*` PR is
+stuck; there is simply nothing to pick.
+
+One newly *verified* (not just assumed) fact: I `ls`'d `~/Library/LaunchAgents/` directly — **both
+`com.halflife.routine.burn.plist` and `com.halflife.routine.weeknight.plist` are still present and
+armed on this laptop.** So the week-old "disable the two plists" recommendation (D-132, top of this
+file, D-134) is confirmed unactioned — this fire is the harm it named. The routine did **not**
+self-disable them: that is the human's deliberate call, already asked four times, not a system action
+to take silently. This run wrote no test guard and invented no leaf (D-131). Ask is unchanged:
+disable the plists, and/or hand over `ANTHROPIC_API_KEY` (the keystone → L3.2b → L4.1b).
