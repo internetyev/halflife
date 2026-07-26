@@ -123,3 +123,21 @@ file, D-134) is confirmed unactioned — this fire is the harm it named. The rou
 self-disable them: that is the human's deliberate call, already asked four times, not a system action
 to take silently. This run wrote no test guard and invented no leaf (D-131). Ask is unchanged:
 disable the plists, and/or hand over `ANTHROPIC_API_KEY` (the keystone → L3.2b → L4.1b).
+
+---
+
+## Re-confirmation — 2026-07-26 (burn run #2 same day, blocked-L3.2b)
+
+Sixth fire since 2026-07-17, and the **second on this same calendar day** — the earlier one landed
+D-135 (#153) only hours ago. Live `.env` re-checked: `ANTHROPIC_API_KEY`, `PLUNK_API_KEY`,
+`KV_REST_API_URL/TOKEN`, `VERCEL_TOKEN` all still empty; only `DATAFORSEO_USERNAME/PASSWORD` set. **No
+gate has opened; the block stands byte-for-byte.** Open-PR queue is dependabot-only (#63–#67, #116,
+#151); no `claude/*` PR is stuck.
+
+The one net-new datum is the timing itself: this fire arriving the *same day* as D-135 is direct
+evidence the weekend burn window fires several times a night and both plists
+(`com.halflife.routine.burn.plist`, `com.halflife.routine.weeknight.plist` — re-verified present in
+`~/Library/LaunchAgents/`) remain armed. Every such fire spends Max quota only to rediscover this
+file. No leaf, no test guard (D-131); did not self-disable the plists (D-135 — that is the human's
+call and would un-arm the routine the moment a gate opens). Ask unchanged: **disable the plists,
+and/or hand over `ANTHROPIC_API_KEY`.**
