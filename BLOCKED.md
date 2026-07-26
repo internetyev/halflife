@@ -1,143 +1,82 @@
-# BLOCKED — 2026-07-17
+# BLOCKED — 2026-07-17 (still standing as of 2026-07-27)
 
-**Leaf:** L3.2b Run the seed against a live key (**human-gated**) — and, behind it, every other unchecked leaf: L3.1b, L4.1b, L5.1, L5.2, L5.4b.
+**Leaf:** L3.2b Run the seed against a live key (**human-gated**) — and, behind it, every other
+unchecked leaf: L3.1b, L4.1b, L5.1, L5.2, L5.4b.
 
 This is not a one-leaf block. The routine has finished everything it can reach. All six remaining
 unchecked leaves need a credential, a purchase, or a deploy — each one is a step the routine is
-constitutionally forbidden to take (ROUTINE.md "Hard constraints" 3). D-131 (2026-07-16) called
-this out and told the next run to stop rather than invent an L5.102. This file is that stop.
+constitutionally forbidden to take (ROUTINE.md "Hard constraints" 3). D-131 (2026-07-16) called this
+out and told the next run to stop rather than invent an L5.102. This file is that stop, and it has
+held byte-for-byte through seven weekend/weeknight fires (see the re-confirmation log at the bottom).
 
-## What I tried
+## The six gated leaves
 
-- Re-baselined to `origin/main` (clean, fast-forward to `d57110c`), confirmed no non-superseded
-  `claude/*` PRs are open — the pipeline is not stuck, there is simply nothing left to pick.
-- Walked `ROADMAP.md` top-down for the first unchecked `[ ]` leaf. All six are gated:
+| Leaf | Gate | What unblocks it |
+|---|---|---|
+| L3.1b Re-rank corpus by real search volume | corgi-deferred | a **non-stub** `corgi-keywords` build — a corgi-repo code change, **not** a credential (see Standing facts) |
+| L3.2b Run the seed against a live key | human-gated | `ANTHROPIC_API_KEY` + app running |
+| L4.1b Generate + commit the live ranking | depends on L3.2b | nothing of its own — it just needs `data/roles/*.json` to exist |
+| L5.1 Naming sign-off + domain purchase | human-gated | a browser + a credit card |
+| L5.2 Deploy to Vercel | human-gated | Vercel account + keys |
+| L5.4b Activate email capture | human-gated | `PLUNK_API_KEY` + a deploy |
 
-  | Leaf | Gate | What unblocks it |
-  |---|---|---|
-  | L3.1b Re-rank corpus by real search volume | corgi-deferred | a **non-stub** `corgi-keywords` build (creds are already present — see the 2026-07-20 note below) |
-  | L3.2b Run the seed against a live key | human-gated | `ANTHROPIC_API_KEY` + app running |
-  | L4.1b Generate + commit the live ranking | depends on L3.2b | nothing of its own — it just needs `data/roles/*.json` to exist |
-  | L5.1 Naming sign-off + domain purchase | human-gated | a browser + a credit card |
-  | L5.2 Deploy to Vercel | human-gated | Vercel account + keys |
-  | L5.4b Activate email capture | human-gated | `PLUNK_API_KEY` + a deploy |
+(`L1.7b` is `[~]`, not `[ ]`; its remainder is likewise three human browser-checks — TM, .com
+collision, registrar price — on `roleclock.ai` / `obsolesce.me` / `replacedby.ai`, ≤ 15 min.)
 
-  (`L1.7b` is `[~]`, not `[ ]`, and its remainder is likewise three human browser-checks.)
-- Did **not** write a new `scripts/__tests__/*-consistency.test.mjs` guard. D-131 names that exact
-  move as the failure mode to stop: the L5.90–L5.100 tail was make-work invented to avoid an
-  "empty run" smell, and its marginal value has reached ~0.
+## Standing facts (verified against the system, not just re-read)
 
-## What I need from you
+- **Live `.env` gate state:** `DATAFORSEO_USERNAME` and `DATAFORSEO_PASSWORD` are **SET**;
+  `ANTHROPIC_API_KEY`, `PLUNK_API_KEY`, `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `VERCEL_TOKEN` are
+  all **empty**. This has not changed since the 2026-07-17 halt.
+- **L3.1b is not credential-gated.** DataForSEO creds are already present (above). The
+  `corgi-keywords` binary exists on PATH (`/opt/homebrew/bin/corgi-keywords`), but its whole dispatch
+  table is stubbed: `corgi/src/corgi/ahrefs/dispatcher.py:43` defines `fetch_keyword_overview(**kwargs)`
+  as a stub that echoes params and makes no API call ($0.00, no data). Unblocking it means wiring
+  `keyword_overview` to the real `ahrefs/client.py` path (~line 306) and rebuilding — **corgi-repo
+  work, tracked in the corgi backlog, out of scope for this routine** (which cannot `pip install` or
+  edit that repo as a leaf).
+- **The launchd fires are still armed.** Both `~/Library/LaunchAgents/com.halflife.routine.burn.plist`
+  and `...weeknight.plist` are present on this laptop (re-verified by `ls`). The "disable the plists
+  until a gate opens" recommendation (D-132) has not been acted on, so each night's fire keeps
+  spending Max quota to rediscover this file. The routine does **not** self-disable them — that is the
+  human's deliberate call (it would un-arm the routine the instant a gate opens), already asked for
+  seven times below.
 
-One of these three unblocks a different slice of the roadmap. **L3.2b is the keystone** — it alone
-unblocks L4.1b, and together those two are the last of the actual product work:
+## What I need from you — one of these, in priority order
 
-1. **`ANTHROPIC_API_KEY`** → unblocks **L3.2b**, then the routine can do **L4.1b** unattended.
-   Procedure is already written in `data/roles/README.md`. Cost a `--limit 10` smoke run first,
-   then `node scripts/seed-roles.mjs` over the ~200 titles. Claude tokens, not real cash.
-2. **A non-stub `corgi-keywords` build** → unblocks **L3.1b**. ≤ $0.40 against the
-   $1/week LEDGER cap. This is a *quality* improvement (real volume ordering vs. the current
-   `curated-interim` alphabetical), not a blocker for anything downstream. **Credentials are no
-   longer the gap** — see the 2026-07-20 re-verification below; the remaining blocker is a
-   corgi-repo code change, not a secret this routine can be handed.
-3. **Naming sign-off + deploy** (L5.1 → L5.2 → L5.4b) — the launch chain. `docs/launch-checklist.md`
-   is the sign-off doc; `docs/naming-shortlist.md` has the three survivors (`roleclock.ai`,
-   `obsolesce.me`, `replacedby.ai`) awaiting ~15 minutes of TM / .com-collision / registrar-price
-   browser checks.
+1. **`ANTHROPIC_API_KEY`** → unblocks the keystone **L3.2b**, then the routine does **L4.1b**
+   unattended and the shell becomes a site with content. Procedure is in `data/roles/README.md`:
+   cost a `--limit 10` smoke run first, then `node scripts/seed-roles.mjs` over ~200 titles. Claude
+   tokens (Max/subscription), **not** real cash.
+2. **Disable the two launchd plists** until a gate opens — stops the nightly quota burn on a dammed
+   roadmap. (Do this *and* #1 if you want the routine dormant until you hand over the key, then
+   re-enable.)
+3. **A non-stub `corgi-keywords` build** → unblocks **L3.1b** (a *quality* re-ranking, not a
+   downstream blocker). ≤ $0.40 against the $1/week LEDGER cap.
+4. **Naming sign-off + deploy** (L5.1 → L5.2 → L5.4b) — the launch chain.
+   `docs/launch-checklist.md` is the sign-off doc.
 
-## Suggested next action
-
-Give me **`ANTHROPIC_API_KEY`** and nothing else. That is the smallest input with the largest
-unblock: L3.2b is the last piece of real product work the routine can then carry through L4.1b on
-its own, and it turns the site from a working shell into a site with content in it.
-
-Until then, **the routine should not fire.** Every run from here is either an empty run or another
-invented guard, and D-131 is explicit that the second is worse than the first. Suggest disabling
-the launchd jobs (`com.halflife.routine.burn.plist`, `com.halflife.routine.weeknight.plist`) until
-one of the three gates above is opened — otherwise the nightly fires will keep burning Max quota to
-rediscover this same file.
-
----
-
-## Re-verification — 2026-07-20 (burn run, blocked-L3.1b)
-
-A burn-window run re-checked whether any gate had opened since 2026-07-17. Verdict: **no gate is
-open; the block stands.** But two facts were confirmed against the actual system state (not just a
-re-read of this file), and they sharpen the L3.1b ask:
-
-1. **DataForSEO credentials are already present** in the repo's `.env` — `DATAFORSEO_USERNAME` and
-   `DATAFORSEO_PASSWORD` both hold values. The original L3.1b row named `DATAFORSEO_LOGIN` as the
-   gate, which read as "creds are missing." They are not. (`ANTHROPIC_API_KEY`, `PLUNK_API_KEY`,
-   and the Vercel/KV secrets remain empty — L3.2b / L5.2 / L5.4b are unchanged.)
-2. **The `corgi-keywords` binary now exists on PATH** (`/opt/homebrew/bin/corgi-keywords`, a real
-   Click CLI backed by `corgi.ahrefs.keywords_cli`) — but its whole dispatch table is still stubbed.
-   `corgi/src/corgi/ahrefs/dispatcher.py:43` defines `fetch_keyword_overview(**kwargs)` as a
-   `"""Stub callable"""` that `return {"metric": "keyword_overview", **kwargs}` — it echoes the
-   parsed flags and makes **no** API call ($0.00, no data). `--dry-run` confirms: it prints the
-   params back, not a cost estimate. Every metric in `METRIC_DISPATCH_TABLE` points at a like stub.
-
-**So L3.1b's sole remaining blocker is a corgi-repo change, not a credential this routine can be
-handed.** Someone must wire `keyword_overview` in the corgi dispatcher to the real
-`ahrefs/client.py` path (which already implements it, line ~306) and rebuild `corgi-keywords`. That
-is corgi-project work, tracked in the corgi backlog — out of scope for the halflife routine, which
-cannot `pip install` or edit that repo as part of a leaf. Until the corgi build ships a live
-`keyword_overview`, L3.1b stays deferred exactly as before; the keystone ask is unchanged
-(**`ANTHROPIC_API_KEY` → L3.2b → L4.1b**). This run wrote no test guard (D-131).
+**Suggested next action:** give me `ANTHROPIC_API_KEY` and nothing else — smallest input, largest
+unblock. Until then the routine should not fire; every run is either empty or an invented guard, and
+D-131 is explicit that the second is worse than the first.
 
 ---
 
-## Escalation — 2026-07-24 (burn run, blocked-L3.2b)
+## Re-confirmation log
 
-A weekend burn fire re-checked the six gates against **live `.env` state** (not a re-read of this
-file): `ANTHROPIC_API_KEY`, `PLUNK_API_KEY`, `KV_REST_API_URL/TOKEN`, `VERCEL_TOKEN` are all still
-empty; only `DATAFORSEO_USERNAME/PASSWORD` are set. **No gate has opened. The block stands, byte-for-
-byte, as on 2026-07-20.** Open-PR queue is dependabot-only — the pipeline is not stuck; there is
-simply nothing to pick.
+Each entry below is a fire that re-checked the six gates against live system state and found the
+block unchanged. Collapsed here (2026-07-27, hygiene — was six sprawling dated sections) so future
+fires read one table, not a growing wall of identical paragraphs. **No entry found an open gate.**
+Add a row; do not add a section.
 
-The one genuinely new fact worth recording: **it is now a full week since the block was raised
-(2026-07-17), and the launchd burn fires are still running** — this run is proof. The
-"disable the two plists until a gate opens" recommendation (D-132, and the top of this file) was
-**not acted on**, so each weekend-night fire keeps spending Max quota to rediscover this same file.
+| Date | Fire # | PR | What was re-verified this fire | New datum (if any) |
+|---|---|---|---|---|
+| 2026-07-17 | 1 | #149 | Original halt: walked ROADMAP top-down, all six leaves gated; pipeline not stuck (no non-superseded `claude/*` PRs) | — (D-132) |
+| 2026-07-20 | 2 | #150 | Gate state unchanged | DataForSEO creds present; `corgi-keywords` binary exists but dispatch stubbed → L3.1b blocker is corgi-repo code, not a secret |
+| 2026-07-24 | 3 | #152 | Live `.env`: only DataForSEO set; PR queue dependabot-only | A full week on from the halt, launchd fires still running (D-134) |
+| 2026-07-26 | 5 | #153 | Live `.env` unchanged; PRs #63–#67, #116, #151 all dependabot | `ls`'d LaunchAgents — both plists present and armed (D-135) |
+| 2026-07-26 | 6 | #154 | Live `.env` unchanged; PR queue dependabot-only | Second fire *same calendar day* as #153 — direct evidence the burn window fires several times a night |
+| 2026-07-27 | 7 | (this) | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed | Consolidated this log into a table (doc hygiene); no leaf, no guard invented (D-131) |
 
-**Ask — one of, in priority order:** (1) **disable the launchd jobs**
-(`com.halflife.routine.burn.plist`, `com.halflife.routine.weeknight.plist`) so the fires stop
-burning quota on a dammed roadmap; and/or (2) hand over **`ANTHROPIC_API_KEY`** — the keystone that
-lets the routine carry L3.2b → L4.1b unattended and turn the shell into a site with content. Nothing
-smaller than one of these changes the outcome of a fire. This run wrote no test guard and invented no
-leaf (D-131).
-
----
-
-## Re-confirmation — 2026-07-26 (burn run, blocked-L3.2b)
-
-Weekend burn fire, two days after D-134. Re-checked the six gates against **live `.env`**:
-`ANTHROPIC_API_KEY`, `PLUNK_API_KEY`, `KV_REST_API_URL/TOKEN`, `VERCEL_TOKEN` all still empty; only
-`DATAFORSEO_USERNAME/PASSWORD` set. **No gate has opened. The block stands, byte-for-byte, as on
-2026-07-24.** Open-PR queue is dependabot-only (7 PRs, #63–#67, #116, #151) — no `claude/*` PR is
-stuck; there is simply nothing to pick.
-
-One newly *verified* (not just assumed) fact: I `ls`'d `~/Library/LaunchAgents/` directly — **both
-`com.halflife.routine.burn.plist` and `com.halflife.routine.weeknight.plist` are still present and
-armed on this laptop.** So the week-old "disable the two plists" recommendation (D-132, top of this
-file, D-134) is confirmed unactioned — this fire is the harm it named. The routine did **not**
-self-disable them: that is the human's deliberate call, already asked four times, not a system action
-to take silently. This run wrote no test guard and invented no leaf (D-131). Ask is unchanged:
-disable the plists, and/or hand over `ANTHROPIC_API_KEY` (the keystone → L3.2b → L4.1b).
-
----
-
-## Re-confirmation — 2026-07-26 (burn run #2 same day, blocked-L3.2b)
-
-Sixth fire since 2026-07-17, and the **second on this same calendar day** — the earlier one landed
-D-135 (#153) only hours ago. Live `.env` re-checked: `ANTHROPIC_API_KEY`, `PLUNK_API_KEY`,
-`KV_REST_API_URL/TOKEN`, `VERCEL_TOKEN` all still empty; only `DATAFORSEO_USERNAME/PASSWORD` set. **No
-gate has opened; the block stands byte-for-byte.** Open-PR queue is dependabot-only (#63–#67, #116,
-#151); no `claude/*` PR is stuck.
-
-The one net-new datum is the timing itself: this fire arriving the *same day* as D-135 is direct
-evidence the weekend burn window fires several times a night and both plists
-(`com.halflife.routine.burn.plist`, `com.halflife.routine.weeknight.plist` — re-verified present in
-`~/Library/LaunchAgents/`) remain armed. Every such fire spends Max quota only to rediscover this
-file. No leaf, no test guard (D-131); did not self-disable the plists (D-135 — that is the human's
-call and would un-arm the routine the moment a gate opens). Ask unchanged: **disable the plists,
-and/or hand over `ANTHROPIC_API_KEY`.**
+Ask, unchanged across all seven fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
+(the keystone → L3.2b → L4.1b).** Nothing smaller than one of these changes the outcome of a fire.
