@@ -1,6 +1,6 @@
 # halflife — Roadmap
 
-_Last updated: 2026-07-27 (**ROUTINE HALTED — see `BLOCKED.md`.** 7th fire since the halt. Re-checked live `.env`: no gate has opened (`ANTHROPIC_API_KEY`/`PLUNK_API_KEY`/KV/Vercel still empty; only DataForSEO set), both plists still armed. This fire **consolidated** `BLOCKED.md`'s six repetitive dated re-confirmations into one compact log table (doc hygiene, like L5.101) rather than appending a seventh paragraph; wrote no guard, invented no leaf. Ask unchanged: **disable the plists and/or hand over `ANTHROPIC_API_KEY`**. $0.00 corgi. D-137.)_
+_Last updated: 2026-07-27 (**ROUTINE HALTED — see `BLOCKED.md`.** 8th fire since the halt. Re-checked live `.env`: no gate has opened (`ANTHROPIC_API_KEY`/`PLUNK_API_KEY`/KV/Vercel still empty; only DataForSEO set), both plists still armed, PR queue dependabot-only. Added one row to the consolidated re-confirmation table (per its own "add a row, not a section" rule); wrote no guard, invented no leaf. Ask unchanged: **disable the plists and/or hand over `ANTHROPIC_API_KEY`**. $0.00 corgi. D-138.)_
 
 _Previously: 2026-07-17 (**ROUTINE HALTED — see `BLOCKED.md`.** The 2026-07-17 weeknight run acted on D-131 instead of picking a leaf: all six remaining unchecked leaves (L3.1b, L3.2b, L4.1b, L5.1, L5.2, L5.4b) are human-gated or corgi-deferred, so the run wrote `BLOCKED.md` with the three gates and the smallest-unblock ask (`ANTHROPIC_API_KEY` → L3.2b → L4.1b) rather than inventing L5.102. Recommends disabling the launchd fires until a gate opens. $0.00 corgi. D-132.)_
 
