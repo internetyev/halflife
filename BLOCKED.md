@@ -1,4 +1,4 @@
-# BLOCKED — 2026-07-17 (still standing as of 2026-07-27)
+# BLOCKED — 2026-07-17 (still standing as of 2026-07-27, 9th fire)
 
 **Leaf:** L3.2b Run the seed against a live key (**human-gated**) — and, behind it, every other
 unchecked leaf: L3.1b, L4.1b, L5.1, L5.2, L5.4b.
@@ -7,7 +7,7 @@ This is not a one-leaf block. The routine has finished everything it can reach. 
 unchecked leaves need a credential, a purchase, or a deploy — each one is a step the routine is
 constitutionally forbidden to take (ROUTINE.md "Hard constraints" 3). D-131 (2026-07-16) called this
 out and told the next run to stop rather than invent an L5.102. This file is that stop, and it has
-held byte-for-byte through eight weekend/weeknight fires (see the re-confirmation log at the bottom).
+held byte-for-byte through nine weekend/weeknight fires (see the re-confirmation log at the bottom).
 
 ## The six gated leaves
 
@@ -40,7 +40,7 @@ collision, registrar price — on `roleclock.ai` / `obsolesce.me` / `replacedby.
   until a gate opens" recommendation (D-132) has not been acted on, so each night's fire keeps
   spending Max quota to rediscover this file. The routine does **not** self-disable them — that is the
   human's deliberate call (it would un-arm the routine the instant a gate opens), already asked for
-  eight times below.
+  nine times below.
 
 ## What I need from you — one of these, in priority order
 
@@ -77,7 +77,8 @@ Add a row; do not add a section.
 | 2026-07-26 | 5 | #153 | Live `.env` unchanged; PRs #63–#67, #116, #151 all dependabot | `ls`'d LaunchAgents — both plists present and armed (D-135) |
 | 2026-07-26 | 6 | #154 | Live `.env` unchanged; PR queue dependabot-only | Second fire *same calendar day* as #153 — direct evidence the burn window fires several times a night |
 | 2026-07-27 | 7 | #155 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed | Consolidated this log into a table (doc hygiene); no leaf, no guard invented (D-131) |
-| 2026-07-27 | 8 | (this) | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed | First fire reading the *consolidated* table — the #155 collapse held; 2nd burn-window night in a row, still no gate |
+| 2026-07-27 | 8 | #156 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed | First fire reading the *consolidated* table — the #155 collapse held; 2nd burn-window night in a row, still no gate |
+| 2026-07-27 | 9 | (this) | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean | 3rd fire this calendar day — matches the burn cadence (`:30` half-hour fires); table still one screen, no section sprawl |
 
-Ask, unchanged across all eight fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
+Ask, unchanged across all nine fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
 (the keystone → L3.2b → L4.1b).** Nothing smaller than one of these changes the outcome of a fire.
