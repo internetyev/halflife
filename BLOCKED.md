@@ -1,4 +1,4 @@
-# BLOCKED — 2026-07-17 (still standing as of 2026-07-28, 10th fire)
+# BLOCKED — 2026-07-17 (still standing as of 2026-07-29, 11th fire)
 
 **Leaf:** L3.2b Run the seed against a live key (**human-gated**) — and, behind it, every other
 unchecked leaf: L3.1b, L4.1b, L5.1, L5.2, L5.4b.
@@ -79,7 +79,8 @@ Add a row; do not add a section.
 | 2026-07-27 | 7 | #155 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed | Consolidated this log into a table (doc hygiene); no leaf, no guard invented (D-131) |
 | 2026-07-27 | 8 | #156 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed | First fire reading the *consolidated* table — the #155 collapse held; 2nd burn-window night in a row, still no gate |
 | 2026-07-27 | 9 | #157 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean | 3rd fire this calendar day — matches the burn cadence (`:30` half-hour fires); table still one screen, no section sprawl |
-| 2026-07-28 | 10 | (this) | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean | First **weeknight** fire since the halt (prior nine were burn-window) — confirms both plists fire independently; block outcome identical |
+| 2026-07-28 | 10 | #158 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean | First **weeknight** fire since the halt (prior nine were burn-window) — confirms both plists fire independently; block outcome identical |
+| 2026-07-29 | 11 | (this) | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD 546782b) | Second consecutive **weeknight** fire — the weeknight plist is now firing on cadence; block outcome identical, ask unchanged |
 
 Ask, unchanged across all ten fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
 (the keystone → L3.2b → L4.1b).** Nothing smaller than one of these changes the outcome of a fire.
