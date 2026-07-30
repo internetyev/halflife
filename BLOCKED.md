@@ -1,4 +1,4 @@
-# BLOCKED — 2026-07-17 (still standing as of 2026-07-30, 13th fire)
+# BLOCKED — 2026-07-17 (still standing as of 2026-07-30, 14th fire)
 
 **Leaf:** L3.2b Run the seed against a live key (**human-gated**) — and, behind it, every other
 unchecked leaf: L3.1b, L4.1b, L5.1, L5.2, L5.4b.
@@ -82,7 +82,8 @@ Add a row; do not add a section.
 | 2026-07-28 | 10 | #158 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean | First **weeknight** fire since the halt (prior nine were burn-window) — confirms both plists fire independently; block outcome identical |
 | 2026-07-29 | 11 | #159 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD 546782b) | Second consecutive **weeknight** fire — the weeknight plist is now firing on cadence; block outcome identical, ask unchanged |
 | 2026-07-29 | 12 | #160 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD 20820d4) | Third **weeknight** fire in a row (two same calendar day, 2026-07-29) — the weeknight `:00`/`:30` cadence is now the dominant fire source; block outcome identical, ask unchanged |
-| 2026-07-30 | 13 | (this) | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD 2bae399) | Fourth consecutive **weeknight** fire — two full weeks (14 days) past the 2026-07-17 halt with the same six gates dammed; block outcome identical, ask unchanged |
+| 2026-07-30 | 13 | #161 | Live `.env` unchanged (only DataForSEO set); PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD 2bae399) | Fourth consecutive **weeknight** fire — two full weeks (14 days) past the 2026-07-17 halt with the same six gates dammed; block outcome identical, ask unchanged |
+| 2026-07-30 | 14 | (this) | Live `.env` re-read key-by-key: `ANTHROPIC_API_KEY`/`PLUNK_API_KEY`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`VERCEL_TOKEN` all empty, only DataForSEO set; PRs #64–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD ea5f0a7) | Fifth consecutive **weeknight** fire, second same calendar day (2026-07-30) as #161 — confirms the weeknight `:00`/`:30` pair both fire; block outcome identical, ask unchanged |
 
-Ask, unchanged across all thirteen fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
+Ask, unchanged across all fourteen fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
 (the keystone → L3.2b → L4.1b).** Nothing smaller than one of these changes the outcome of a fire.
