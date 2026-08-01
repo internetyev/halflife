@@ -1,4 +1,4 @@
-# BLOCKED — 2026-07-17 (still standing as of 2026-08-01, 20th fire)
+# BLOCKED — 2026-07-17 (still standing as of 2026-08-01, 21st fire)
 
 **Leaf:** L3.2b Run the seed against a live key (**human-gated**) — and, behind it, every other
 unchecked leaf: L3.1b, L4.1b, L5.1, L5.2, L5.4b.
@@ -90,6 +90,7 @@ Add a row; do not add a section.
 | 2026-08-01 | 18 | (#165, 9eb5826) | Live `.env` re-read key-by-key: `ANTHROPIC_API_KEY`/`PLUNK_API_KEY`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`VERCEL_TOKEN` all empty, only DataForSEO set; PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD 919644b, #164 merged forward) | Second consecutive **burn-window** fire (weekend of 2026-08-01), first fire of a new calendar month — 15 days past the 2026-07-17 halt with the same six gates dammed; block outcome identical, ask unchanged |
 | 2026-08-01 | 19 | (this) | Live `.env` re-read key-by-key: `ANTHROPIC_API_KEY`/`PLUNK_API_KEY`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`VERCEL_TOKEN` all empty, only DataForSEO set; PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD f695eac, #165 merged forward) | Third consecutive **burn-window** fire, same weekend (2026-08-01) — 15 days past the 2026-07-17 halt with the same six gates dammed; block outcome identical, ask unchanged |
 | 2026-08-01 | 20 | (this) | Live `.env` re-read key-by-key: `ANTHROPIC_API_KEY`/`PLUNK_API_KEY`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`VERCEL_TOKEN` all empty, only DataForSEO set; PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD b97cd8e, #167 merged forward) | Fourth consecutive **burn-window** fire, same weekend (2026-08-01) — the 19th fire (#167) auto-merged forward cleanly; block outcome identical, ask unchanged |
+| 2026-08-01 | 21 | (this) | Live `.env` re-read key-by-key: `ANTHROPIC_API_KEY`/`PLUNK_API_KEY`/`KV_REST_API_URL`/`KV_REST_API_TOKEN`/`VERCEL_TOKEN` all empty, only DataForSEO set; PRs #63–#67, #116, #151 dependabot-only; both plists still armed; `ff-only` re-baseline to `origin/main` clean (HEAD 96719d6, #168 merged forward) | Fifth consecutive **burn-window** fire, same weekend (2026-08-01) — the 20th fire auto-merged forward cleanly (HEAD 96719d6); block outcome identical, ask unchanged |
 
-Ask, unchanged across all twenty fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
+Ask, unchanged across all twenty-one fires: **disable the plists, and/or hand over `ANTHROPIC_API_KEY`
 (the keystone → L3.2b → L4.1b).** Nothing smaller than one of these changes the outcome of a fire.
